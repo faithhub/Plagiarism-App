@@ -1,6 +1,6 @@
 import express from "express";
 import morgan from "morgan";
-import router from "./routes";
+import router from "./src/routes";
 import path from "path";
 import expressSession from "express-session";
 import dotenv from "dotenv";
@@ -37,8 +37,8 @@ if (app.get("env") === "production") {
 }
 
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views/"));
-app.use(express.static(path.join(__dirname, "public")));
+app.set("views", path.join(__dirname, "src/views/"));
+app.use(express.static(path.join(__dirname, "src/public")));
 
 app.use("/", router);
 
