@@ -31,5 +31,10 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "sequelize": "^6.19.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/register": "^7.17.7"
   }
 }
