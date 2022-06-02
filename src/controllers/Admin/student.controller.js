@@ -1,7 +1,7 @@
-import { User } from "../../database/models";
-import moment from "moment";
+const { User } = require("../../database/models");
+const moment = require("moment");
 
-export default class {
+module.exports = class {
   static async index(req, res) {
     try {
       const students = await User.findAll({
@@ -61,7 +61,7 @@ export default class {
       res.redirect("back" || "/admin");
     }
   }
-  
+
   static async edit(req, res) {
     try {
       if (req.method == "POST") {
@@ -92,4 +92,4 @@ export default class {
       res.redirect("back" || "/admin");
     }
   }
-}
+};

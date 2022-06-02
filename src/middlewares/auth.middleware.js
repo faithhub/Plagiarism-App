@@ -34,6 +34,7 @@ module.exports = class {
   static async noAuth(req, res, next) {
     if (req.session.user) {
       const user = req.session.user;
+      console.log(user);
       res.locals.user = req.session.user;
       switch (user.type) {
         case "student":
@@ -49,4 +50,4 @@ module.exports = class {
     }
     next();
   }
-}
+};

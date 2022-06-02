@@ -1,7 +1,7 @@
-import { User } from "../../database/models";
-import bcrypt from "bcrypt";
+const { User } = require("../../database/models");
+const bcrypt = require("bcrypt");
 
-export default class {
+module.exports = class {
   static async profile(req, res) {
     try {
       if (req.method == "POST") {
@@ -68,4 +68,4 @@ export default class {
       res.redirect("back" || "/student");
     }
   }
-}
+};

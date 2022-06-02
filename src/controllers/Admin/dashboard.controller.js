@@ -1,7 +1,7 @@
-import { User } from "../../database/models";
-import bcrypt from "bcrypt";
+const { User } = require("../../database/models");
+const bcrypt = require("bcrypt");
 
-export default class {
+module.exports = class {
   static async index(req, res) {
     try {
       const student = await User.count({ where: { type: "student" } });
@@ -86,4 +86,4 @@ export default class {
       res.redirect("back" || "/admin");
     }
   }
-}
+};

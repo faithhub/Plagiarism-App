@@ -5,12 +5,16 @@ const path = require("path");
 const expressSession = require("express-session");
 const dotenv = require("dotenv");
 const flash = require("express-flash");
-var admin = require('./src/routes/admin.route')
-  , login = require('./src/routes/login.route');
-  // , register = require('./routes/register')
-  // , logout = require('./routes/logout')
-  // , posts = require('./routes/posts')
-  // , user = require('./routes/user');
+var admin = require("./src/routes/admin.route"),
+  login = require("./src/routes/login.route");
+logout = require("./src/routes/logout.route");
+lecturer = require("./src/routes/lecturer.route");
+student = require("./src/routes/student.route");
+register = require("./src/routes/login.route");
+// , register = require('./routes/register')
+// , logout = require('./routes/logout')
+// , posts = require('./routes/posts')
+// , user = require('./routes/user');
 // app.use('/register', register);
 // app.use('/logout', logout);
 // app.use('/posts', posts);
@@ -53,8 +57,14 @@ app.use(express.static(path.join(__dirname, "src/public")));
 
 // app.use("/", router);
 
-app.use('/', login);
-app.use('/admin', admin);
+app.use("/", login);
+app.use("/login", login);
+app.use("/register", register);
+app.use("/logout", logout);
+app.use("/admin", admin);
+app.use("/lecturer", lecturer);
+app.use("/student", student);
+
 app.use("/", (req, res, next) => {
   return res.redirect("login");
   res

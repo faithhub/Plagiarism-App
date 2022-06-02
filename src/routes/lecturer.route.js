@@ -1,12 +1,11 @@
-import { Router } from "express";
-import controller from "../controllers/Lecturer/lecturer.controller";
-import authMiddleware from "../middlewares/auth.middleware";
-import settingsController from "../controllers/Lecturer/settings.controller";
-import studentMiddleware from "../middlewares/student.middleware";
-import validation from "../validations/admin.validation";
+const express = require("express");
+const controller = require("../controllers/Lecturer/lecturer.controller");
+const authMiddleware = require("../middlewares/auth.middleware");
+const settingsController = require("../controllers/Lecturer/settings.controller");
+const studentMiddleware = require("../middlewares/student.middleware");
+const validation = require("../validations/admin.validation");
 
-const router = Router();
-const module = "lecturer";
+const router = express.Router();
 
 router.get("/", authMiddleware.auth, controller.index);
 
@@ -32,4 +31,4 @@ router.post(
   settingsController.updatePassword
 );
 
-export { module, router };
+module.exports = router;

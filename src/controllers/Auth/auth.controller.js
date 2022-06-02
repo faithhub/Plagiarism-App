@@ -55,7 +55,7 @@ module.exports = class {
         message: { errors: [] },
       });
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   }
 
@@ -87,9 +87,11 @@ module.exports = class {
       req.session.destroy(function () {
         console.log("user logged out.");
       });
+      res.locals.user = {};
+      console.log(req.session, req.locals);
       res.redirect("/login");
     } catch (error) {
       console.log(error);
     }
   }
-}
+};
