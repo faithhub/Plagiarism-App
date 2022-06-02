@@ -1,10 +1,9 @@
-import { Router } from "express";
-import authMiddleware from "../middlewares/Auth.middleware";
-import AuthController from "../controllers/Auth/Auth.controller";
-import authValidation from "../validations/auth.validation";
+const express = require("express");
+const AuthController = require("../controllers/Auth/Auth.controller");
+const authValidation = require("../validations/auth.validation");
+const authMiddleware = require("../middlewares/auth.middleware");
 
-const router = Router();
-const module = "register";
+const router = express.Router();
 
 router.get("/", authMiddleware.noAuth, AuthController.register);
 
@@ -15,4 +14,4 @@ router.post(
   AuthController.register
 );
 
-export { module, router };
+module.exports = router;

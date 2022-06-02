@@ -1,14 +1,12 @@
-const express = require('express');
-const router = express.Router();
+const express = require("express");
 const adminMiddleware = require("../middlewares/admin.middleware");
+const authMiddleware = require("../middlewares/auth.middleware");
+const adminValidation = require("../validations/admin.validation");
 // const dashboardController = require("../controllers/Admin/dashboard.controller");
 // const lecturerController = require("../controllers/Admin/lecturer.controller");
 // const studentController = require("../controllers/Admin/student.controller");
-const authMiddleware = require("../middlewares/auth.middleware");
-const adminValidation = require("../validations/admin.validation");
 
-// const router = Router();
-// const module = "admin";
+const router = express.Router();
 
 // router.get("/", authMiddleware.auth, dashboardController.index);
 
@@ -96,4 +94,4 @@ const adminValidation = require("../validations/admin.validation");
 //   dashboardController.updatePassword
 // );
 
-module.exports= router;
+module.exports = router;

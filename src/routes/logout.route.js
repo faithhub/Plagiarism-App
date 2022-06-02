@@ -1,10 +1,9 @@
-import { Router } from "express";
-import authMiddleware from "../middlewares/Auth.middleware";
-import authController from "../controllers/Auth/Auth.controller";
+const express = require("express");
+const authMiddleware = require("../middlewares/Auth.middleware");
+const authController = require("../controllers/Auth/Auth.controller");
 
-const router = Router();
-const module = "logout";
+const router = express.Router();
 
 router.get("/", authController.logout);
 
-export { module, router };
+module.exports = router;
