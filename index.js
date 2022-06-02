@@ -45,7 +45,7 @@ const session = {
   saveUninitialized: false,
 };
 // app.use(expressSession({ secret: process.env.SESSION_SECRET }));
-app.use(session({
+app.use(expressSession({
   secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true
