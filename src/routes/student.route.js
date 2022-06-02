@@ -1,7 +1,7 @@
 const express = require("express");
 const dashboardController = require("../controllers/Student/dashboard.controller");
 const settingsController = require("../controllers/Student/settings.controller");
-const authMiddleware = require("../middlewares/Auth.middleware");
+const authMiddleware = require("../middlewares//auth.middleware");
 const studentMiddleware = require("../middlewares/student.middleware");
 const validation = require("../validations/admin.validation");
 
