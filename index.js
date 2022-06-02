@@ -44,8 +44,12 @@ const session = {
   resave: false,
   saveUninitialized: false,
 };
-app.use(expressSession({ secret: process.env.SESSION_SECRET }));
-
+// app.use(expressSession({ secret: process.env.SESSION_SECRET }));
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true
+}));
 if (app.get("env") === "production") {
   // Serve secure cookies, requires HTTPS
   session.cookie.secure = true;
