@@ -1,16 +1,27 @@
-import express from "express";
-import morgan from "morgan";
-import router from "./src/routes";
-import path from "path";
-import expressSession from "express-session";
-import dotenv from "dotenv";
-import flash from "express-flash";
+const express = require("express");
+const morgan = require("morgan");
+// const router = require("./src/routes/dddindex");
+const path = require("path");
+const expressSession = require("express-session");
+const dotenv = require("dotenv");
+const flash = require("express-flash");
+var admin = require('./src/routes/admin.route')
+  , login = require('./src/routes/login.route');
+  // , register = require('./routes/register')
+  // , logout = require('./routes/logout')
+  // , posts = require('./routes/posts')
+  // , user = require('./routes/user');
+// app.use('/register', register);
+// app.use('/logout', logout);
+// app.use('/posts', posts);
+// app.use('/user', user);
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT;
 //request handling
 app.use(flash());
+
 // var sessionFlash = function (req, res, next) {
 //   // res.locals.currentUser = req.user;
 //   res.locals.error = req.flash("error");
@@ -40,8 +51,10 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views/"));
 app.use(express.static(path.join(__dirname, "src/public")));
 
-app.use("/", router);
+// app.use("/", router);
 
+app.use('/', login);
+app.use('/admin', admin);
 app.use("/", (req, res, next) => {
   return res.redirect("login");
   res

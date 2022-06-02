@@ -1,6 +1,6 @@
-import { User } from "../../database/models";
+const { User } = require("../../database/models");
 
-export default class {
+module.exports = class {
   static async login(req, res) {
     try {
       if (req.method == "POST") {

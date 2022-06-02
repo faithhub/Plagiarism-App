@@ -1,10 +1,10 @@
-import { validationResult } from "express-validator";
-import { User } from "../database/models";
-import Sequelize from "sequelize";
-import bcrypt from "bcrypt";
+const { validationResult } = require("express-validator");
+const { User } = require("../database/models");
+const Sequelize = require("sequelize");
+const bcrypt = require("bcrypt");
 const Op = Sequelize.Op;
 
-export default class {
+module.exports = class {
   static async createLecturer(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
