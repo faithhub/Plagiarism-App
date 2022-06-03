@@ -13,7 +13,7 @@ module.exports = class {
           return res.render("pages/auth/login", {
             message: {
               errors: [],
-              fail: "No student found for this matric number",
+              fail: "No record found for this Matric Number / User ID",
             },
           });
         }
