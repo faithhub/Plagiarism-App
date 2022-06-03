@@ -1,22 +1,22 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "plagiarism_app",
+    "username": "aimtdqfd_user",
+    "password": "Oluwadara+1",
+    "database": "aimtdqfd_plagiarism-app",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "plagiarism_app",
+    "username": "aimtdqfd_user",
+    "password": "Oluwadara+1",
+    "database": "aimtdqfd_plagiarism-app",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "plagiarism_app",
+    "username": "aimtdqfd_user",
+    "password": "Oluwadara+1",
+    "database": "aimtdqfd_plagiarism-app",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
