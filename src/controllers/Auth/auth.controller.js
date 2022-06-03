@@ -1,12 +1,4 @@
 const { User } = require("../../database/models");
-// const log4js = require('log4js');
-
-// log4js.configure({
-//   appenders: { everything: { type: 'file', filename: 'logs.log' } },
-//   categories: { default: { appenders: ['everything'], level: 'ALL' } }
-// });
-
-// const logger = log4js.getLogger();
 
 module.exports = class {
   static async login(req, res) {
@@ -21,7 +13,7 @@ module.exports = class {
           return res.render("pages/auth/login", {
             message: {
               errors: [],
-              fail: "No student found for this matric number",
+              fail: "No record found for this Matric Number / User ID",
             },
           });
         }

@@ -17,12 +17,21 @@
     "ejs": "^3.1.8",
     "esm": "^3.2.25",
     "express": "^4.18.1",
+<<<<<<< HEAD
     "express-flash": "0.0.2",
     "express-jwt": "^7.7.5",
     "express-session": "^1.17.3",
     "express-validator": "^6.14.1",
     "log4js": "^6.5.2",
     "fs": "0.0.1-security",
+=======
+    "express-flash": "^0.0.2",
+    "express-jwt": "^7.7.1",
+    "express-session": "^1.17.2",
+    "express-validator": "^6.14.0",
+    "fs": "^0.0.1-security",
+    "log4js": "^6.5.2",
+>>>>>>> 5d8209c787a93f5b7f44069ade9755e7ea6e262f
     "moment": "^2.29.3",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
