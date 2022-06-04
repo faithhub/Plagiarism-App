@@ -84,8 +84,6 @@ module.exports = class {
       const { id } = req.params;
       res.locals.student = await User.findByPk(id);
       res.locals.title = "Edit Student";
-      // res.locals.message = { errors: [] };
-      // console.log(res.locals.message);
       return res.render("pages/admin/student/edit");
     } catch (error) {
       req.flash("error", error.message);

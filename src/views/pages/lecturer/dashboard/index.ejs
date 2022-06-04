@@ -60,7 +60,12 @@
                             email:
                             <span class="fw-bold">
                               <%= locals.user.email %>!</span
-                            >
+                            ><br />
+                            Course:
+                            <span class="fw-bold">
+                              <%= locals.user.courseTitle %> (<%=
+                              locals.user.courseCode %>)
+                            </span>
                           </p>
 
                           <a

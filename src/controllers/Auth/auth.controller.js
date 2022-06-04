@@ -1,4 +1,4 @@
-const { User } = require("../../database/models");
+const { User, Course } = require("../../database/models");
 
 module.exports = class {
   static async login(req, res) {
@@ -6,7 +6,15 @@ module.exports = class {
       if (req.method == "POST") {
         const payload = { ...req.body, username: req.body.username };
         const { username, password } = payload;
-        const user = await User.findOne({ where: { username: username } });
+        const user = await User.findOne({
+          where: { username: username },
+          include: [
+            {
+              model: Course,
+              as: "course",
+            },
+          ],
+        });
 
         if (!user) {
           req.flash("error", "No record found");
@@ -37,6 +45,11 @@ module.exports = class {
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,
         };
+
+        if (userData.type == "lecturer") {
+          userData["courseTitle"] = user.course.title;
+          userData["courseCode"] = user.course.code;
+        }
         req.session.user = userData;
         res.locals.user = req.session.user;
         switch (userData.type) {
@@ -46,16 +59,16 @@ module.exports = class {
             return res.redirect("/lecturer");
           case "admin":
             return res.redirect("/admin");
-            break;
           default:
             break;
         }
       }
-      res.render("pages/auth/login", {
-        message: { errors: [] },
-      });
+      res.locals.message = { errors: [] };
+      res.render("pages/auth/login");
     } catch (error) {
       console.log(error);
+      req.flash("error", error.message);
+      res.redirect("back" || "/login");
     }
   }
 
@@ -68,30 +81,35 @@ module.exports = class {
           type: "student",
         };
         delete payload.matric;
-        await User.create(payload);
-        return res.render("pages/auth/login", {
-          message: { errors: [], success: "Register Successfully" },
-        });
+        delete payload.confirmPassword;
+        console.log(payload);
+        const save = await User.create(payload);
+        if (!save) {
+          req.flash("warning", "Something went wrong, try again!");
+          return res.redirect("back");
+        }
+        req.flash("success", "Register Successfully");
+        return res.redirect("/login");
       }
-      res.render("pages/auth/register", {
-        message: { errors: [] },
-      });
+      res.locals.message = { errors: [] };
+      res.render("pages/auth/register");
     } catch (error) {
-      // console.log(error);
+      console.log(error);
+      req.flash("error", error.message);
+      res.redirect("back" || "/register");
     }
   }
 
   static async logout(req, res) {
     try {
       req.flash("success", "You're logged out");
-      req.session.destroy(function () {
-        console.log("user logged out.");
-      });
+      req.session.destroy(function () {});
       res.locals.user = {};
-      console.log(req.session, req.locals);
       res.redirect("/login");
     } catch (error) {
       console.log(error);
+      req.flash("error", error.message);
+      res.redirect("back" || "/login");
     }
   }
 };

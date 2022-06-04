@@ -1,4 +1,4 @@
-const { User } = require("../../database/models");
+const { User, Course } = require("../../database/models");
 const moment = require("moment");
 
 module.exports = class {
@@ -7,7 +7,14 @@ module.exports = class {
       const lecturers = await User.findAll({
         where: { type: "lecturer" },
         order: [["id", "DESC"]],
+        include: [
+          {
+            model: Course,
+            as: "course",
+          },
+        ],
       });
+      console.log(lecturers);
       res.locals.lecturers = lecturers;
       res.locals.moment = moment;
       res.locals.sn = 1;
@@ -25,10 +32,12 @@ module.exports = class {
       if (req.method == "POST") {
         const payload = {
           ...req.body,
+          courseId: req.body.course,
           username: req.body.userId,
           type: "lecturer",
         };
         delete payload.userId;
+        delete payload.course;
         const user = await User.create(payload);
 
         if (!user) {
@@ -39,7 +48,21 @@ module.exports = class {
         req.flash("success", "New record addedd successfully");
         return res.redirect("/admin/lecturers");
       }
-      res.locals.user = req.session.user;
+      const courses = await Course.findAll({
+        where: {
+          "$lecturer.id$": null,
+        },
+        include: [
+          {
+            model: User,
+            as: "lecturer",
+          },
+        ],
+        raw: true,
+        nest: true,
+      });
+      console.log(courses);
+      res.locals.courses = courses;
       res.locals.title = "Add Lecturer";
       res.locals.message = { errors: [] };
       return res.render("pages/admin/lecturer/create");
@@ -66,8 +89,11 @@ module.exports = class {
       if (req.method == "POST") {
         const payload = {
           ...req.body,
+          username: req.body.userId,
+          courseId: req.body.course,
         };
         delete payload.id;
+        delete payload.userId;
         await User.update(payload, {
           where: { id: req.body.id },
         });
@@ -78,7 +104,15 @@ module.exports = class {
       const { id } = req.params;
       const lecturer = await User.findOne({
         where: { type: "lecturer", id: id },
+        include: [
+          {
+            model: Course,
+            as: "course",
+          },
+        ],
       });
+      const courses = await Course.findAll();
+      res.locals.courses = courses;
       res.locals.lecturer = lecturer;
       res.locals.title = "Edit Lecturer";
       res.locals.message = { errors: [] };

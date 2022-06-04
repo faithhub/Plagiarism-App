@@ -1,11 +1,12 @@
 const { check, validationResult } = require("express-validator");
-const { User } = require("../database/models");
+const { User, Course } = require("../database/models");
 
 module.exports = (method) => {
   switch (method) {
     case "updateLecturer":
       {
         return [
+          check("course", "Course is required").trim().not().isEmpty(),
           check("name", "The Name is required")
             .trim()
             .not()
@@ -36,6 +37,7 @@ module.exports = (method) => {
     case "createLecturer":
       {
         return [
+          check("course", "Course is required").trim().not().isEmpty(),
           check("name", "The Name is required")
             .trim()
             .not()
@@ -273,6 +275,84 @@ module.exports = (method) => {
               }
               return true;
             }),
+        ];
+      }
+      break;
+    case "createCourse":
+      {
+        return [
+          check("title", "The Coure Name is required")
+            .trim()
+            .not()
+            .isEmpty()
+            .isLength({
+              min: 3,
+            })
+            .withMessage("The Course Name must more than 3 characters long")
+            .isLength({
+              max: 50,
+            })
+            .custom((value) => {
+              return Course.findOne({ where: { title: value } }).then(
+                (data) => {
+                  if (data) {
+                    return Promise.reject("The Course title already exist");
+                  }
+                }
+              );
+            }),
+
+          check("code", "The Coure Code is required")
+            .trim()
+            .not()
+            .isEmpty()
+            .isLength({
+              min: 3,
+            })
+            .withMessage("The Course Code must more than 3 characters long")
+            .isLength({
+              max: 50,
+            })
+            .withMessage("The Course Code must be less than 50 characters long")
+            .custom((value) => {
+              return Course.findOne({ where: { code: value } }).then((data) => {
+                if (data) {
+                  return Promise.reject("The Course Code already exist");
+                }
+              });
+            }),
+        ];
+      }
+      break;
+    case "updateCourse":
+      {
+        return [
+          check("title", "The Coure Name is required")
+            .trim()
+            .not()
+            .isEmpty()
+            .isLength({
+              min: 3,
+            })
+            .withMessage("The Course Name must more than 3 characters long")
+            .isLength({
+              max: 50,
+            }),
+
+          check("code", "The Coure Code is required")
+            .trim()
+            .not()
+            .isEmpty()
+            .isLength({
+              min: 3,
+            })
+            .withMessage("The Course Code must more than 3 characters long")
+            .isLength({
+              max: 50,
+            })
+            .withMessage(
+              "The Course Code must be less than 50 characters long"
+            ),
         ];
       }
       break;

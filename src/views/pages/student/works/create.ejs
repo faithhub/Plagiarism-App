@@ -46,15 +46,10 @@
               <div class="row">
                 <div class="card">
                   <div class="card-header">
-                    <h4 class="fw-bold">Edit Lecturer</h4>
+                    <h4 class="fw-bold">Submit Work</h4>
                   </div>
                   <div class="card-body">
-                    <form method="post" action="/admin/edit/lecturer">
-                      <input
-                        type="hidden"
-                        name="id"
-                        value="<%= locals.lecturer.id %>"
-                      />
+                    <form method="post" action="">
                       <div class="row mb-5">
                         <label
                           class="col-sm-2 col-form-label"
@@ -65,7 +60,8 @@
                         <div class="col-sm-10">
                           <div class="input-group">
                             <select
-                              id="multicol-country"
+                              onchange="viewLecturer()"
+                              id="courseLecturer"
                               class="select2 form-select"
                               data-allow-clear="true"
                               name="course"
@@ -73,10 +69,13 @@
                               <option value="">Select Course</option>
                               <% if(locals.courses){%> <%
                               courses.forEach(function(course) { %>
-                              <option value="<%= course.id %>" <%if(course.id == locals.lecturer.course.id){%> selected <%}%>}>
+                              <option
+                                data-lecturer="<%= course.lecturer.name %>"
+                                value="<%= course.id %>"
+                              >
                                 <%= course.title %> (<%= course.code %>)
                               </option>
-                              <%})%> <%}%>
+                              < <%})%> <%}%>
                             </select>
                           </div>
                           <% if (message.errors.course) { %>
@@ -86,12 +85,45 @@
                           <% } %>
                         </div>
                       </div>
+
+                      <div
+                        class="row mb-5"
+                        id="lecturerTag"
+                        style="display: none"
+                      >
+                        <label
+                          class="col-sm-2 col-form-label"
+                          for="basic-icon-default-fullname"
+                        >
+                          Course Lecturer
+                        </label>
+                        <div class="col-sm-10">
+                          <div class="input-group input-group-merge">
+                            <span
+                              style="background-color: #eceef1"
+                              id="basic-icon-default-fullname2"
+                              class="input-group-text"
+                            >
+                              <i class="bx bx-user"></i>
+                            </span>
+                            <input
+                              id="lecturerName"
+                              class="form-control"
+                              id="basic-icon-default-fullname"
+                              disabled
+                              aria-describedby="basic-icon-default-fullname2"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
                       <div class="row mb-5">
                         <label
                           class="col-sm-2 col-form-label"
                           for="basic-icon-default-fullname"
-                          >Lecturer ID</label
                         >
+                          Title
+                        </label>
                         <div class="col-sm-10">
                           <div class="input-group input-group-merge">
                             <span
@@ -101,53 +133,22 @@
                             ></span>
                             <input
                               type="text"
-                              name="userId"
+                              name="tile"
                               class="form-control"
                               id="basic-icon-default-fullname"
-                              value="<%= locals.lecturer.username %>"
-                              placeholder="LEC101"
-                              aria-label="LEC101"
+                              placeholder="Work Title..."
+                              aria-label="Work Title..."
                               aria-describedby="basic-icon-default-fullname2"
                             />
                           </div>
-                          <% if (message.errors.userId) { %>
+                          <% if (message.errors.title) { %>
                           <label class="error"
-                            ><%= message.errors.userId.msg %></label
+                            ><%= message.errors.title.msg %></label
                           >
                           <% } %>
                         </div>
                       </div>
-                      <div class="row mb-5">
-                        <label
-                          class="col-sm-2 col-form-label"
-                          for="basic-icon-default-fullname"
-                          >Name</label
-                        >
-                        <div class="col-sm-10">
-                          <div class="input-group input-group-merge">
-                            <span
-                              id="basic-icon-default-fullname2"
-                              class="input-group-text"
-                              ><i class="bx bx-user"></i
-                            ></span>
-                            <input
-                              type="text"
-                              name="name"
-                              class="form-control"
-                              id="basic-icon-default-fullname"
-                              value="<%= locals.lecturer.name %>"
-                              placeholder="John Doe"
-                              aria-label="John Doe"
-                              aria-describedby="basic-icon-default-fullname2"
-                            />
-                          </div>
-                          <% if (message.errors.name) { %>
-                          <label class="error">
-                            <%= message.errors.name.msg %>
-                          </label>
-                          <% } %>
-                        </div>
-                      </div>
+
                       <div class="row mb-5">
                         <label
                           class="col-sm-2 col-form-label"
@@ -159,15 +160,11 @@
                             <span class="input-group-text"
                               ><i class="bx bx-envelope"></i
                             ></span>
+
                             <input
-                              type="email"
-                              name="email"
-                              id="basic-icon-default-email"
                               class="form-control"
-                              value="<%= locals.lecturer.email %>"
-                              placeholder="john.doe@gmail.com"
-                              aria-label="john.doe@gmail.com"
-                              aria-describedby="basic-icon-default-email2"
+                              type="file"
+                              id="formFile"
                             />
                           </div>
                           <% if (message.errors.email) { %>
@@ -179,8 +176,12 @@
                       </div>
                       <div class="row justify-content-end">
                         <div class="col-sm-10">
-                          <button type="submit" class="btn btn-primary">
-                            Update
+                          <button
+                            type="submit"
+                            disabled
+                            class="btn btn-primary"
+                          >
+                            Submit
                           </button>
                         </div>
                       </div>
@@ -214,4 +215,23 @@
     <!-- build:js assets/vendor/js/core.js -->
     <%- include("../../../partials/script") %>
   </body>
+  <script>
+    function viewLecturer() {
+      const e = document.getElementById("courseLecturer");
+      const option = e.options[e.selectedIndex];
+      const value = option.value;
+
+      if (value) {
+        var lecturer = option.getAttribute("data-lecturer");
+        if (lecturer) {
+          document.getElementById("lecturerTag").style.display = "flex";
+          document.getElementById("lecturerName").value = lecturer;
+          console.log(lecturer);
+          return;
+        }
+      }
+      document.getElementById("lecturerTag").style.display = "none";
+      document.getElementById("lecturerName").value = null;
+    }
+  </script>
 </html>

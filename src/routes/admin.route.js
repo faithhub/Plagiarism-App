@@ -4,11 +4,36 @@ const authMiddleware = require("../middlewares/auth.middleware");
 const adminValidation = require("../validations/admin.validation");
 const dashboardController = require("../controllers/Admin/dashboard.controller");
 const lecturerController = require("../controllers/Admin/lecturer.controller");
+const courseController = require("../controllers/Admin/course.controller");
 const studentController = require("../controllers/Admin/student.controller");
 
 const router = express.Router();
 
 router.get("/", authMiddleware.auth, dashboardController.index);
+
+router.get("/courses", authMiddleware.auth, courseController.index);
+
+router.get("/add-course", authMiddleware.auth, courseController.create);
+
+router.get("/delete/course/:id", authMiddleware.auth, courseController.delete);
+
+router.post(
+  "/add-course",
+  authMiddleware.auth,
+  adminValidation("createCourse"),
+  adminMiddleware.createCourse,
+  courseController.create
+);
+
+router.get("/edit/course/:id", authMiddleware.auth, courseController.edit);
+
+router.post(
+  "/edit/course",
+  authMiddleware.auth,
+  adminValidation("updateCourse"),
+  adminMiddleware.updateCourse,
+  courseController.edit
+);
 
 router.get("/lecturers", authMiddleware.auth, lecturerController.index);
 

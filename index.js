@@ -60,21 +60,14 @@ app.use("/admin", admin);
 app.use("/lecturer", lecturer);
 app.use("/student", student);
 
-app.use("/", (req, res, next) => {
-  return res.redirect("login");
-  res
-    .status(200)
-    .json({ status: "success", message: "Welcome to Plagiarism App" });
-});
-
-//error page handling
-app.use((req, res, next) => {
-  const error = new Error("Page not found");
-  error.status = 404;
-  next(error);
-});
+// app.use((req, res, next) => {
+//   const error = new Error("Page not found");
+//   error.status = 404;
+//   next(error);
+// });
 
 app.use((error, req, res, next) => {
+  return res.redirect("login");
   res.status(error.status || 500);
   res.json({
     error: {

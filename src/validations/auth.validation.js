@@ -50,7 +50,14 @@ module.exports = (method) => {
             .isLength({
               max: 50,
             })
-            .withMessage("Email must be less than 50 characters long"),
+            .withMessage("Email must be less than 50 characters long")
+            .custom((value) => {
+              return User.findOne({ where: { email: value } }).then((data) => {
+                if (data) {
+                  return Promise.reject("The email address already exist");
+                }
+              });
+            }),
           check("password", "The Password is required")
             .not()
             .isEmpty()

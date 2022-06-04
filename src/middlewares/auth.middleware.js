@@ -4,18 +4,18 @@ module.exports = class {
   static async validate(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.render("pages/auth/login", {
-        message: { errors: errors.mapped() },
-      });
+      req.flash("warning", "All fields are required");
+      res.locals.message = { errors: errors.mapped() };
+      return res.render("pages/auth/login");
     }
     next();
   }
   static async validateRegister(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.render("pages/auth/register", {
-        message: { errors: errors.mapped() },
-      });
+      req.flash("warning", "All fields are required");
+      res.locals.message = { errors: errors.mapped() };
+      return res.render("pages/auth/register");
     }
     next();
   }
@@ -26,8 +26,6 @@ module.exports = class {
       return res.redirect("/login");
     }
     res.locals.user = req.session.user;
-    // res.locals.user = "";
-    // console.log(res.locals.user);
     next();
   }
 

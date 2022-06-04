@@ -50,20 +50,20 @@
                       <h5
                         class="card-title mb-0 col-md-8 d-flex justify-content-start align-items-center"
                       >
-                        <b>All Lecturers</b>
+                        <b>Works</b>
                       </h5>
                       <div
                         class="dt-buttons col-md-4 d-flex justify-content-end align-items-center"
                       >
                         <a
                           class="dt-button create-new btn btn-primary"
-                          href="/admin/add-lecturer"
+                          href="/student/submit-work"
                         >
                           <span
                             ><i class="bx bx-plus me-sm-2"></i>
-                            <span class="d-none d-sm-inline-block"
-                              >Add New Record</span
-                            ></span
+                            <span class="d-none d-sm-inline-block">
+                              Submit New Work
+                            </span></span
                           >
                         </a>
                       </div>
@@ -76,7 +76,6 @@
                           <th>S/N</th>
                           <th>User ID</th>
                           <th>Name</th>
-                          <th>Course</th>
                           <th>Email Address</th>
                           <th>Date Reg.</th>
                           <th>Action</th>
@@ -89,9 +88,6 @@
                           <td><%= sn++ %></td>
                           <td><%= user.username %></td>
                           <td><%= user.name %></td>
-                          <td>
-                            <%= user.course.title %> (<%= user.course.code %>)
-                          </td>
                           <td><%= user.email %></td>
                           <td><%= locals.moment(user.createdAt) %></td>
                           <td>
