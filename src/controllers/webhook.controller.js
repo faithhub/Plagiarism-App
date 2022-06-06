@@ -28,7 +28,7 @@ module.exports = class {
         //   others: object.entry[0].changes[0],
         // };
 
-        await Messages.create(info);
+        // await Messages.create(info);
         const messages = object.entry[0].changes[0].value.messages;
         messages.map((message) => {
           const info = {
