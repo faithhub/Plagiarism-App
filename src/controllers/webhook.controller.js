@@ -34,18 +34,23 @@ module.exports = class {
       //     },
       //   });
       const body = req.body;
-      if (body.field !== "messages") {
+      //   if (body.field !== "messages") {
+      //     // not from the messages webhook so dont process
+      //     return res.status(400);
+      //   }
+      if (body.field == "messages") {
         // not from the messages webhook so dont process
-        return res.status(400);
-      }
-      const reviews = body.value.messages.map((message) => {
+        // return res.status(400);
         const reviewInfo = {
-          phone: message.from,
-          text: message.text.body,
-          field: message,
+          phone: "876587578567",
+          text: "hjgdshj",
+          field: req.body.field.message,
         };
-        Messages.create(reviewInfo).then().catch();
-      });
+        await Messages.create(reviewInfo);
+        // const reviews = body.value.messages.map((message) => {
+
+        // });
+      }
 
       return res.status(200).json({ msg: "Good one" });
     } catch (error) {
