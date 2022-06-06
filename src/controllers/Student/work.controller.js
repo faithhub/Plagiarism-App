@@ -13,13 +13,14 @@ module.exports = class {
       res.render("pages/student/works/index");
     } catch (error) {
       req.flash("error", error.message);
-      res.redirect("back" || "/student");
+      res.redirect("back" || "student");
     }
   }
 
   static async create(req, res) {
     try {
       if (req.method == "POST") {
+        return true;
         const payload = {
           ...req.body,
           username: req.body.userId,
@@ -57,8 +58,9 @@ module.exports = class {
       res.locals.message = { errors: [] };
       return res.render("pages/student/works/create");
     } catch (error) {
+      console.log(error.message);
       req.flash("error", error.message);
-      res.redirect("back" || "/student");
+      res.redirect("back" || "student");
     }
   }
 };

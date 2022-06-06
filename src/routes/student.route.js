@@ -4,7 +4,7 @@ const settingsController = require("../controllers/Student/settings.controller")
 const workController = require("../controllers/Student/work.controller");
 const authMiddleware = require("../middlewares//auth.middleware");
 const studentMiddleware = require("../middlewares/student.middleware");
-const validation = require("../validations/admin.validation");
+const validation = require("../validations/main.validation");
 
 const router = express.Router();
 
@@ -32,5 +32,13 @@ router.post(
 
 router.get("/works", authMiddleware.auth, workController.index);
 router.get("/submit-work", authMiddleware.auth, workController.create);
+
+router.post(
+  "/submit-work",
+  authMiddleware.auth,
+  validation("uploadWork"),
+  studentMiddleware.uploadWork,
+  settingsController.updatePassword
+);
 
 module.exports = router;

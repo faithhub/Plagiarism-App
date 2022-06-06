@@ -75,14 +75,15 @@
                               >
                                 <%= course.title %> (<%= course.code %>)
                               </option>
-                              < <%})%> <%}%>
+                              <%})%> <%}%>
                             </select>
                           </div>
-                          <% if (message.errors.course) { %>
-                          <label class="error"
-                            ><%= message.errors.course.msg %></label
-                          >
-                          <% } %>
+                          <% if (locals.messages.errors) { %> <% if
+                          (locals.messages.errors[0].course) { %>
+                          <label class="error">
+                            <%= locals.messages.errors[0].course.msg %>
+                          </label>
+                          <% } %> <% } %>
                         </div>
                       </div>
 
@@ -133,7 +134,7 @@
                             ></span>
                             <input
                               type="text"
-                              name="tile"
+                              name="workTile"
                               class="form-control"
                               id="basic-icon-default-fullname"
                               placeholder="Work Title..."
@@ -141,11 +142,12 @@
                               aria-describedby="basic-icon-default-fullname2"
                             />
                           </div>
-                          <% if (message.errors.title) { %>
-                          <label class="error"
-                            ><%= message.errors.title.msg %></label
-                          >
-                          <% } %>
+                          <% if (locals.messages.errors) { %> <% if
+                          (locals.messages.errors[0].workTile) { %>
+                          <label class="error">
+                            <%= locals.messages.errors[0].workTile.msg %>
+                          </label>
+                          <% } %> <% } %>
                         </div>
                       </div>
 
@@ -153,7 +155,7 @@
                         <label
                           class="col-sm-2 col-form-label"
                           for="basic-icon-default-email"
-                          >Email</label
+                          >File</label
                         >
                         <div class="col-sm-10">
                           <div class="input-group input-group-merge">
@@ -165,22 +167,20 @@
                               class="form-control"
                               type="file"
                               id="formFile"
+                              name="file"
                             />
                           </div>
-                          <% if (message.errors.email) { %>
-                          <label class="error"
-                            ><%= message.errors.email.msg %></label
-                          >
-                          <% } %>
+                          <% if (locals.messages.errors) { %> <% if
+                          (locals.messages.errors[0].file) { %>
+                          <label class="error">
+                            <%= locals.messages.errors[0].file.msg %>
+                          </label>
+                          <% } %> <% } %>
                         </div>
                       </div>
                       <div class="row justify-content-end">
                         <div class="col-sm-10">
-                          <button
-                            type="submit"
-                            disabled
-                            class="btn btn-primary"
-                          >
+                          <button type="submit" class="btn btn-primary">
                             Submit
                           </button>
                         </div>

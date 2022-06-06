@@ -356,5 +356,42 @@ module.exports = (method) => {
         ];
       }
       break;
+
+    case "uploadWork":
+      {
+        return [
+          check("course", "Course is required").trim().not().isEmpty(),
+          check("workTile", "The Work Title is required")
+            .trim()
+            .not()
+            .isEmpty()
+            .isLength({
+              min: 3,
+            })
+            .withMessage("Your name must more than 3 characters long")
+            .isLength({
+              max: 50,
+            })
+            .withMessage("Your name must be less than 100 characters long"),
+          check("file", "The work file is required")
+            .not()
+            .isEmpty()
+            .custom((value, { req }) => {
+              console.log(value, req.file);
+              //   if(req.files.mimetype === 'application/pdf'){
+              //     return '.pdf'; // return "non-falsy" value to indicate valid data"
+              // }else{
+              //     return false; // return "falsy" value to indicate invalid data
+              // }
+              // if (value !== req.body.password) {
+              //   throw new Error(
+              //     "Password confirmation does not match with password"
+              //   );
+              // }
+              //return true;
+            }),
+        ];
+      }
+      break;
   }
 };

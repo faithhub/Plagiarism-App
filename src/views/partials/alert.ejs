@@ -15,7 +15,7 @@
 
 <% if(locals.messages.errors){ %>
   <script>
-    toastr.error("<%= locals.messages.errors %>")
+    toastr.error("<%= locals.messages.errors[0] %>")
   </script>
 <% } %>
 

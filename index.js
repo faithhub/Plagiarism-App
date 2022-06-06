@@ -10,6 +10,7 @@ logout = require("./src/routes/logout.route");
 lecturer = require("./src/routes/lecturer.route");
 student = require("./src/routes/student.route");
 register = require("./src/routes/register.route");
+webhooks = require("./src/routes/webhook.route");
 
 dotenv.config();
 const app = express();
@@ -58,16 +59,17 @@ app.use("/register", register);
 app.use("/logout", logout);
 app.use("/admin", admin);
 app.use("/lecturer", lecturer);
-app.use("/student", student);
+app.use("/webhooks", webhooks);
 
-// app.use((req, res, next) => {
-//   const error = new Error("Page not found");
-//   error.status = 404;
-//   next(error);
-// });
+app.use((req, res, next) => {
+  return res.redirect("/login");
+  const error = new Error("Page not found");
+  error.status = 404;
+  next(error);
+});
 
 app.use((error, req, res, next) => {
-  return res.redirect("login");
+  return res.redirect("/login");
   res.status(error.status || 500);
   res.json({
     error: {

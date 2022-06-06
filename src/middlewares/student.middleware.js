@@ -52,4 +52,22 @@ module.exports = class {
     }
     next();
   }
+
+  static async uploadWork(req, res, next) {
+    try {
+      // const { currentPassword } = req.body;
+      // console.log(req.files);
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        req.flash("error", "All fields are required");
+        req.flash("errors", errors.mapped());
+        res.locals.title = "Upload Work";
+        console.log(errors.mapped(), req.body, req.files);
+        return res.redirect("back");
+        return res.render("pages/student/works/create");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 };

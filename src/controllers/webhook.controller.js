@@ -1,0 +1,50 @@
+const { Messages } = require("../database/models");
+const token = "HERE_WE_GO_AGAIN_DUDE";
+module.exports = class {
+  static async index(req, res) {
+    try {
+      if (
+        req.query["hub.mode"] == "subscribe" &&
+        req.query["hub.verify_token"] == token
+      ) {
+        res.send(req.query["hub.challenge"]);
+      } else {
+        res.sendStatus(400).json({ msg: "bad request dude" });
+      }
+
+      res.statusCode(200).json({ msg: "Good request" });
+    } catch (error) {
+      res.statusCode(400).json({ error: error });
+    }
+  }
+
+  static async create(req, res) {
+    try {
+      const body = req.body;
+      if (body.field !== "messages") {
+        // not from the messages webhook so dont process
+        return res.sendStatus(400);
+      }
+      const reviews = body.value.messages.map((message) => {
+        const reviewInfo = {
+          phone: message.from,
+          text: message.text.body,
+          field: message,
+        };
+        Messages.create(reviewInfo).then().catch();
+      });
+      return res.statusCode(200).json(reviewInfo);
+    } catch (error) {
+      res.statusCode(400).json({ error: error });
+    }
+  }
+
+  static async getAll(req, res) {
+    try {
+      const messages = await Messages.findAll();
+      return res.statusCode(200).json(messages);
+    } catch (error) {
+      return res.statusCode(400).json({ error: error });
+    }
+  }
+};
