@@ -44,7 +44,7 @@ module.exports = class {
         const reviewInfo = {
           phone: "876587578567",
           text: "hjgdshj",
-          field: req.body.field.message,
+          others: req.body.field.message,
         };
         await Messages.create(reviewInfo);
         // const reviews = body.value.messages.map((message) => {
