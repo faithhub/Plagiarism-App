@@ -20,6 +20,12 @@ module.exports = class {
 
   static async create(req, res) {
     try {
+      const reviewInfo = {
+        phone: "876587578567",
+        text: "hjgdshj",
+        others: req.body,
+      };
+      await Messages.create(reviewInfo);
       //   const reviewInfo = {
       //     phone: "23480473684",
       //     text: "jskdbhjbsasa",
@@ -33,24 +39,19 @@ module.exports = class {
       //       all: all,
       //     },
       //   });
-      const body = req.body;
-      //   if (body.field !== "messages") {
+      //   const body = req.body;
+      //   //   if (body.field !== "messages") {
+      //   //     // not from the messages webhook so dont process
+      //   //     return res.status(400);
+      //   //   }
+      //   if (body.field == "messages") {
       //     // not from the messages webhook so dont process
-      //     return res.status(400);
-      //   }
-      if (body.field == "messages") {
-        // not from the messages webhook so dont process
-        // return res.status(400);
-        const reviewInfo = {
-          phone: "876587578567",
-          text: "hjgdshj",
-          others: req.body.field.message,
-        };
-        await Messages.create(reviewInfo);
-        // const reviews = body.value.messages.map((message) => {
+      //     // return res.status(400);
 
-        // });
-      }
+      //     // const reviews = body.value.messages.map((message) => {
+
+      //     // });
+      //   }
 
       return res.status(200).json({ msg: "Good one" });
     } catch (error) {
