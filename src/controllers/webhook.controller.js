@@ -20,24 +20,17 @@ module.exports = class {
 
   static async create(req, res) {
     try {
-      const object = req.body.object;
+      const body = req.body;
       if (object == "whatsapp_business_account") {
-        const info = {
-          phone: "message.from",
-          text: "message.text.body",
-          others: object,
-        };
-        await Messages.create(info);
-
-        // const messages = object.entry[0].changes[0].value.messages;
-        // messages.map((message) => {
-        //   const info = {
-        //     phone: message.from,
-        //     text: message.text.body,
-        //     others: message.text,
-        //   };
-        //   Messages.create(info).then().catch();
-        // });
+        const messages = body.entry[0].changes[0].value.messages;
+        messages.map((message) => {
+          const info = {
+            phone: message.from,
+            text: message.text.body,
+            others: message.text,
+          };
+          Messages.create(info).then().catch();
+        });
       }
 
       return res.status(200).json({ msg: "Good one" });
