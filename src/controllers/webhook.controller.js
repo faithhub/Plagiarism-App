@@ -9,12 +9,12 @@ module.exports = class {
       ) {
         res.send(req.query["hub.challenge"]);
       } else {
-        res.sendStatus(400).json({ msg: "bad request dude" });
+        res.status(400).json({ msg: "bad request dude" });
       }
 
-      res.statusCode(200).json({ msg: "Good request" });
+      res.status(200).json({ msg: "Good request" });
     } catch (error) {
-      res.statusCode(400).json({ error: error });
+      res.status(400).json({ error: error });
     }
   }
 
@@ -23,7 +23,7 @@ module.exports = class {
       const body = req.body;
       if (body.field !== "messages") {
         // not from the messages webhook so dont process
-        return res.sendStatus(400);
+        return res.status(400);
       }
       const reviews = body.value.messages.map((message) => {
         const reviewInfo = {
@@ -33,18 +33,18 @@ module.exports = class {
         };
         Messages.create(reviewInfo).then().catch();
       });
-      return res.statusCode(200).json(reviewInfo);
+      return res.status(200).json(reviewInfo);
     } catch (error) {
-      res.statusCode(400).json({ error: error });
+      res.status(400).json({ error: error });
     }
   }
 
   static async getAll(req, res) {
     try {
       const messages = await Messages.findAll();
-      return res.statusCode(200).json(messages);
+      return res.status(200).json(messages);
     } catch (error) {
-      return res.statusCode(400).json({ error: error });
+      return res.status(400).json({ error: error });
     }
   }
 };
