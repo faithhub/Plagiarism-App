@@ -15,7 +15,15 @@ module.exports = (sequelize, DataTypes) => {
     {
       phone: DataTypes.STRING,
       text: DataTypes.STRING,
-      others: DataTypes.TEXT,
+      others: {
+        type: DataTypes.TEXT,
+        get: function () {
+          return JSON.parse(this.getDataValue("others"));
+        },
+        set: function (value) {
+          return this.setDataValue("others", JSON.stringify(value));
+        },
+      },
     },
     {
       sequelize,
