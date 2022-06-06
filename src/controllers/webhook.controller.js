@@ -22,14 +22,21 @@ module.exports = class {
     try {
       const object = req.body.object;
       if (object == "whatsapp_business_account") {
-        const messages = object.entry[0].changes[0].messages;
+        // const info = {
+        //   phone: "message.from",
+        //   text: "message.text.body",
+        //   others: object.entry[0].changes[0],
+        // };
+
+        await Messages.create(info);
+        const messages = object.entry[0].changes[0].value.messages;
         messages.map((message) => {
           const info = {
             phone: message.from,
             text: message.text.body,
             others: message.text,
           };
-          Messages.create(info);
+          Messages.create(info).then().catch();
         });
       }
 
