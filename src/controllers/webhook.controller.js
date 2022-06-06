@@ -25,7 +25,7 @@ module.exports = class {
         const info = {
           phone: "message.from",
           text: "message.text.body",
-          others: object.entry[0],
+          others: object,
         };
         await Messages.create(info);
 
