@@ -20,38 +20,18 @@ module.exports = class {
 
   static async create(req, res) {
     try {
-      const reviewInfo = {
-        phone: "876587578567",
-        text: "hjgdshj",
-        others: req.body,
-      };
-      await Messages.create(reviewInfo);
-      //   const reviewInfo = {
-      //     phone: "23480473684",
-      //     text: "jskdbhjbsasa",
-      //     field: "jhasvdhjvashjvdjasv",
-      //   };
-      //   const save = await Messages.create(reviewInfo);
-      //   const all = await Messages.findAll();
-      //   return res.status(200).json({
-      //     msg: {
-      //       create: save,
-      //       all: all,
-      //     },
-      //   });
-      //   const body = req.body;
-      //   //   if (body.field !== "messages") {
-      //   //     // not from the messages webhook so dont process
-      //   //     return res.status(400);
-      //   //   }
-      //   if (body.field == "messages") {
-      //     // not from the messages webhook so dont process
-      //     // return res.status(400);
-
-      //     // const reviews = body.value.messages.map((message) => {
-
-      //     // });
-      //   }
+      const object = req.body.object;
+      if (object == "whatsapp_business_account") {
+        const messages = object.entry[0].changes[0].messages;
+        messages.map((message) => {
+          const info = {
+            phone: message.from,
+            text: message.text.body,
+            others: message.text,
+          };
+          Messages.create(info);
+        });
+      }
 
       return res.status(200).json({ msg: "Good one" });
     } catch (error) {
