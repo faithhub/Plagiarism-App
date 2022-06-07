@@ -22,17 +22,23 @@ module.exports = class {
     try {
       const body = req.body;
       const object = req.body.object;
-      if (object == "whatsapp_business_account") {
-        const messages = body.entry[0].changes[0].value.messages;
-        messages.map((message) => {
-          const info = {
-            phone: message.from,
-            text: message.text.body,
-            others: message.text,
-          };
-          Messages.create(info).then().catch();
-        });
-      }
+      const info = {
+        phone: "8467684638648",
+        text: "ghjsvjdvsaj",
+        others: req.body,
+      };
+      await Messages.create(info);
+      // if (object == "whatsapp_business_account") {
+      //   const messages = body.entry[0].changes[0].value.messages;
+      //   messages.map((message) => {
+      //     const info = {
+      //       phone: message.from,
+      //       text: message.text.body,
+      //       others: message.text,
+      //     };
+      //     Messages.create(info).then().catch();
+      //   });
+      // }
 
       return res.status(200).json({ msg: "Good one" });
     } catch (error) {
