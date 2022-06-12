@@ -59,6 +59,36 @@
                         <label
                           class="col-sm-2 col-form-label"
                           for="basic-icon-default-fullname"
+                          >Course</label
+                        >
+                        <div class="col-sm-10">
+                          <div
+                            class="input-group input-group-merge"
+                            style="color: gray"
+                          >
+                            <span
+                              id="basic-icon-default-fullname2"
+                              class="input-group-text"
+                              style="background-color: #eceef1"
+                            >
+                              <i class="bx bx-book"></i>
+                            </span>
+                            <input
+                              type="text"
+                              name="username"
+                              class="form-control"
+                              id="basic-icon-default-fullname"
+                              disabled
+                              value="<%= locals.user.courseTitle %> (<%= locals.user.courseCode %>)"
+                              aria-describedby="basic-icon-default-fullname2"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mb-5">
+                        <label
+                          class="col-sm-2 col-form-label"
+                          for="basic-icon-default-fullname"
                           >Lecturer ID</label
                         >
                         <div class="col-sm-10">

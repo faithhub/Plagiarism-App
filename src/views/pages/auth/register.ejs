@@ -14,7 +14,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Sign In</title>
+    <title>Plagiarism Sign Up</title>
 
     <meta name="description" content="Plagiarism App" />
     <meta
@@ -26,7 +26,7 @@
     <link
       rel="icon"
       type="image/x-icon"
-      href="assets/img/favicon/favicon.ico"
+      href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/favicon/favicon.ico"
     />
 
     <!-- Fonts -->
@@ -81,6 +81,7 @@
     <script src="assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="assets/js/config.js"></script>
+    <%- include("../../partials/alert") %>
   </head>
 
   <body>
@@ -200,6 +201,7 @@
                     type="text"
                     class="form-control"
                     name="name"
+                    autofocus
                     placeholder="Enter your full name"
                   />
                   <% if (message.errors.name) { %>
@@ -214,7 +216,6 @@
                     class="form-control"
                     name="email"
                     placeholder="Enter your email"
-                    autofocus
                   />
                   <% if (message.errors.email) { %>
                   <label class="error"><%= message.errors.email.msg %></label>
@@ -230,7 +231,6 @@
                     id="email"
                     name="matric"
                     placeholder="Enter your matric number"
-                    autofocus
                     style="text-transform: uppercase"
                   />
                   <% if (message.errors.matric) { %>

@@ -3,7 +3,7 @@ const controller = require("../controllers/Lecturer/lecturer.controller");
 const authMiddleware = require("../middlewares/auth.middleware");
 const settingsController = require("../controllers/Lecturer/settings.controller");
 const studentMiddleware = require("../middlewares/student.middleware");
-const validation = require("../validations/admin.validation");
+const validation = require("../validations/main.validation");
 
 const router = express.Router();
 

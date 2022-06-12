@@ -13,12 +13,6 @@
   </script>
 <% } %>
 
-<% if(locals.messages.errors){ %>
-  <script>
-    toastr.error("<%= locals.messages.errors %>")
-  </script>
-<% } %>
-
 <% if(locals.messages.success){ %>
   <script>
     toastr.success("<%= locals.messages.success %>")

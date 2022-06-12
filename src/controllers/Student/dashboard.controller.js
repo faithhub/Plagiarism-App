@@ -12,8 +12,9 @@ module.exports = class {
       res.locals.title = "Dashboard";
       res.render("pages/student/dashboard/index");
     } catch (error) {
-      req.flash("error", error.message);
-      res.redirect("back" || "/student");
+      console.log(error);
+      // req.flash("error", error.message);
+      // res.redirect("back" || "/student/profle");
     }
   }
 };

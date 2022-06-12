@@ -1,5 +1,5 @@
 const { validationResult } = require("express-validator");
-const { User } = require("../database/models");
+const { User, Course } = require("../database/models");
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
 const Op = Sequelize.Op;
@@ -10,25 +10,35 @@ module.exports = class {
     if (!errors.isEmpty()) {
       req.flash("error", "All fields are required");
       res.locals.message = { errors: errors.mapped() };
+      res.locals.title = "Add Lecturer";
       return res.render("pages/admin/lecturer/create");
     }
     next();
   }
 
   static async updateLecturer(req, res, next) {
-    const { id, email, name } = req.body;
+    const { id, email } = req.body;
+    const username = req.body.userId;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       req.flash("error", "All fields are required");
       res.locals.errors = errors.mapped();
       return res.redirect("back");
     }
-    const checkemail = await User.count({
+    const checkEmail = await User.count({
       where: { email, id: { [Op.notIn]: [id] } },
       paranoid: false,
     });
-    if (checkemail > 0) {
-      req.flash("error", "The email has already exist");
+    if (checkEmail > 0) {
+      req.flash("error", "The Lecturer Email has already exist");
+      return res.redirect("back");
+    }
+    const checkUserId = await User.count({
+      where: { username, id: { [Op.notIn]: [id] } },
+      paranoid: false,
+    });
+    if (checkUserId > 0) {
+      req.flash("error", "The Lecturer ID has already exist");
       return res.redirect("back");
     }
     next();
@@ -62,6 +72,8 @@ module.exports = class {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       req.flash("error", "All fields are required");
+      res.locals.message = { errors: errors.mapped() };
+      console.log(res.locals.message);
       return res.redirect("back");
     }
     const checkemail = await User.count({
@@ -126,6 +138,43 @@ module.exports = class {
     const getPassword = await bcrypt.compare(currentPassword, user.password);
     if (!getPassword) {
       req.flash("error", "The Current Password is not correct");
+      return res.redirect("back");
+    }
+    next();
+  }
+
+  static async createCourse(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      req.flash("error", "All fields are required");
+      res.locals.message = { errors: errors.mapped() };
+      return res.render("pages/admin/course/create");
+    }
+    next();
+  }
+
+  static async updateCourse(req, res, next) {
+    const { id, title, code } = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      req.flash("error", "All fields are required");
+      res.locals.errors = errors.mapped();
+      return res.redirect("back");
+    }
+    const checkTitle = await Course.count({
+      where: { title, id: { [Op.notIn]: [id] } },
+      paranoid: false,
+    });
+    if (checkTitle > 0) {
+      req.flash("error", "The Course title has already exist");
+      return res.redirect("back");
+    }
+    const checkCode = await Course.count({
+      where: { code, id: { [Op.notIn]: [id] } },
+      paranoid: false,
+    });
+    if (checkCode > 0) {
+      req.flash("error", "The Course Code has already exist");
       return res.redirect("back");
     }
     next();

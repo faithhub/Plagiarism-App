@@ -14,7 +14,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Sign In</title>
+    <title>Plagiarism Sign In</title>
 
     <meta name="description" content="Plagiarism App" />
     <meta
@@ -26,7 +26,7 @@
     <link
       rel="icon"
       type="image/x-icon"
-      href="assets/img/favicon/favicon.ico"
+      href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/favicon/favicon.ico"
     />
 
     <!-- Fonts -->
@@ -212,11 +212,12 @@
                     name="username"
                     placeholder="Enter your email or username"
                     autofocus
+                    value="CS201600046DPT"
                     style="text-transform: uppercase"
                   />
-                  <% if (message.errors.username) { %>
+                  <% if (locals.message.errors.username) { %>
                   <label class="error"
-                    ><%= message.errors.username.msg %></label
+                    ><%= locals.message.errors.username.msg %></label
                   >
                   <% } %>
                 </div>
@@ -224,7 +225,7 @@
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
                     <label class="form-label" for="password">Password</label>
-                    <a href="auth-forgot-password-basic.html">
+                    <a href="#">
                       <small>Forgot Password?</small>
                     </a>
                   </div>
@@ -234,6 +235,7 @@
                       id="password"
                       class="form-control"
                       name="password"
+                      value="Oluwadara+1"
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"
                     />
@@ -241,9 +243,9 @@
                       ><i class="bx bx-hide"></i
                     ></span>
                   </div>
-                  <% if (message.errors.password) { %>
+                  <% if (locals.message.errors.password) { %>
                   <label class="error"
-                    ><%= message.errors.password.msg %></label
+                    ><%= locals.message.errors.password.msg %></label
                   >
                   <% } %>
                 </div>
