@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const fileUpload = require("express-fileupload");
 const path = require("path");
 const expressSession = require("express-session");
 const dotenv = require("dotenv");
@@ -25,6 +26,7 @@ app.use(flash());
 //   next();
 // };
 // app.use(sessionFlash);
+app.use(fileUpload());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -58,18 +60,17 @@ app.use("/login", login);
 app.use("/register", register);
 app.use("/logout", logout);
 app.use("/admin", admin);
+app.use("/student", student);
 app.use("/lecturer", lecturer);
 app.use("/webhooks", webhooks);
 
 app.use((req, res, next) => {
-  return res.redirect("/login");
   const error = new Error("Page not found");
   error.status = 404;
   next(error);
 });
 
 app.use((error, req, res, next) => {
-  return res.redirect("/login");
   res.status(error.status || 500);
   res.json({
     error: {

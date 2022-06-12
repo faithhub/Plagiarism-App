@@ -10,6 +10,7 @@ module.exports = class {
     }
     next();
   }
+
   static async validateRegister(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -19,6 +20,7 @@ module.exports = class {
     }
     next();
   }
+
   static async auth(req, res, next) {
     if (!req.session.user) {
       res.locals.message = { errors: [] };

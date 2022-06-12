@@ -1,21 +1,32 @@
 "use strict";
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Messages", {
+    await queryInterface.createTable("Files", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      phone: {
+      courseId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Courses",
+          key: "id",
+        },
+      },
+      studentId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+      },
+      fileTitle: {
         type: Sequelize.STRING,
       },
-      text: {
+      file: {
         type: Sequelize.STRING,
-      },
-      others: {
-        type: Sequelize.TEXT,
       },
       deletedAt: {
         type: Sequelize.DATE,
@@ -31,6 +42,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Messages");
+    await queryInterface.dropTable("Files");
   },
 };

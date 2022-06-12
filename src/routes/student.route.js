@@ -38,7 +38,9 @@ router.post(
   authMiddleware.auth,
   validation("uploadWork"),
   studentMiddleware.uploadWork,
-  settingsController.updatePassword
+  workController.create
 );
+
+router.get("/delete/file/:id", authMiddleware.auth, workController.delete);
 
 module.exports = router;

@@ -74,35 +74,44 @@
                       <thead>
                         <tr>
                           <th>S/N</th>
-                          <th>User ID</th>
-                          <th>Name</th>
-                          <th>Email Address</th>
-                          <th>Date Reg.</th>
+                          <th>Course</th>
+                          <th>Lecturer</th>
+                          <th>Work Title</th>
+                          <th>Work File</th>
+                          <th>Date Uploaded</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <% if(locals.lecturers){%> <%
-                        lecturers.forEach(function(user) { %>
+                        <% if(locals.works){%> <% works.forEach(function(work) {
+                        %>
                         <tr>
                           <td><%= sn++ %></td>
-                          <td><%= user.username %></td>
-                          <td><%= user.name %></td>
-                          <td><%= user.email %></td>
-                          <td><%= locals.moment(user.createdAt) %></td>
+                          <td><%= work.course.title %></td>
+                          <td><%= work.course.lecturer.name %></td>
+                          <td><%= work.fileTitle %></td>
                           <td>
                             <a
-                              onclick="return confirm('Are you sure you want to delete this Student?')"
-                              href="/admin/delete/lecturer/<%= user.id %>"
+                              href="/files/<%= work.file %>"
+                              target="blank"
+                              class="btn btn-sm btn-success"
+                              >View</a
+                            >
+                          </td>
+                          <td><%= locals.moment(work.createdAt) %></td>
+                          <td>
+                            <a
+                              onclick="return confirm('Are you sure you want to delete this File?')"
+                              href="/student/delete/file/<%= work.id %>"
                               class="btn btn-sm btn-danger"
                             >
                               Delete
                             </a>
-                            <a
-                              href="/admin/edit/lecturer/<%= user.id %>"
+                            <!-- <a
+                              href="/admin/edit/lecturer/<%= work.id %>"
                               class="btn btn-sm btn-success"
                               >Edit</a
-                            >
+                            > -->
                           </td>
                         </tr>
                         <% }) %> <% } %>

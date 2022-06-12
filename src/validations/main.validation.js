@@ -9,7 +9,6 @@ module.exports = (method) => {
           check("course", "Course is required").trim().not().isEmpty(),
           check("name", "The Name is required")
             .trim()
-            .not()
             .isEmpty()
             .isLength({
               min: 3,
@@ -22,7 +21,6 @@ module.exports = (method) => {
           // check("userId", "The Lecturer ID is required").not().isEmpty(),
           check("email", "The Email is required")
             .trim()
-            .not()
             .isEmpty()
             .isEmail()
             .normalizeEmail()
@@ -40,7 +38,6 @@ module.exports = (method) => {
           check("course", "Course is required").trim().not().isEmpty(),
           check("name", "The Name is required")
             .trim()
-            .not()
             .isEmpty()
             .isLength({
               min: 3,
@@ -51,7 +48,6 @@ module.exports = (method) => {
             })
             .withMessage("Your name must be less than 50 characters long"),
           check("userId", "The Lecturer ID is required")
-            .not()
             .isEmpty()
             .custom((value) => {
               return User.findOne({ where: { username: value } }).then(
@@ -64,7 +60,6 @@ module.exports = (method) => {
             }),
           check("email", "The Email is required")
             .trim()
-            .not()
             .isEmpty()
             .isEmail()
             .normalizeEmail()
@@ -81,7 +76,6 @@ module.exports = (method) => {
               });
             }),
           check("password", "The Password is required")
-            .not()
             .isEmpty()
             .isLength({
               min: 6,
@@ -94,7 +88,6 @@ module.exports = (method) => {
             .matches(/(?=.*?[0-9])/)
             .withMessage("Password must have at least one Number"),
           check("confirmPassword", "The Confrim Password is required")
-            .not()
             .isEmpty()
             .custom((value, { req }) => {
               if (value !== req.body.password) {
@@ -107,13 +100,11 @@ module.exports = (method) => {
         ];
       }
       break;
-
     case "createStudent":
       {
         return [
           check("name", "The Name is required")
             .trim()
-            .not()
             .isEmpty()
             .isLength({
               min: 3,
@@ -180,7 +171,6 @@ module.exports = (method) => {
         ];
       }
       break;
-
     case "updateStudent":
       {
         return [
@@ -211,7 +201,6 @@ module.exports = (method) => {
         ];
       }
       break;
-
     case "updateProfile":
       {
         return [
@@ -329,7 +318,6 @@ module.exports = (method) => {
         return [
           check("title", "The Coure Name is required")
             .trim()
-            .not()
             .isEmpty()
             .isLength({
               min: 3,
@@ -341,7 +329,6 @@ module.exports = (method) => {
 
           check("code", "The Coure Code is required")
             .trim()
-            .not()
             .isEmpty()
             .isLength({
               min: 3,
@@ -356,15 +343,13 @@ module.exports = (method) => {
         ];
       }
       break;
-
     case "uploadWork":
       {
         return [
           check("course", "Course is required").trim().not().isEmpty(),
           check("workTile", "The Work Title is required")
             .trim()
-            .not()
-            .isEmpty()
+            .notEmpty()
             .isLength({
               min: 3,
             })
@@ -373,23 +358,21 @@ module.exports = (method) => {
               max: 50,
             })
             .withMessage("Your name must be less than 100 characters long"),
-          check("file", "The work file is required")
-            .not()
-            .isEmpty()
-            .custom((value, { req }) => {
-              console.log(value, req.file);
-              //   if(req.files.mimetype === 'application/pdf'){
-              //     return '.pdf'; // return "non-falsy" value to indicate valid data"
-              // }else{
-              //     return false; // return "falsy" value to indicate invalid data
-              // }
-              // if (value !== req.body.password) {
-              //   throw new Error(
-              //     "Password confirmation does not match with password"
-              //   );
-              // }
-              //return true;
-            }),
+          // check("work", "The work file is required").notEmpty(),``
+          // .custom((value, { req }) => {
+          //   // console.log(value, req.file);
+          //   //   if(req.files.mimetype === 'application/pdf'){
+          //   //     return '.pdf'; // return "non-falsy" value to indicate valid data"
+          //   // }else{
+          //   //     return false; // return "falsy" value to indicate invalid data
+          //   // }
+          //   // if (value !== req.body.password) {
+          //   //   throw new Error(
+          //   //     "Password confirmation does not match with password"
+          //   //   );
+          //   // }
+          //   //return true;
+          // }),
         ];
       }
       break;
