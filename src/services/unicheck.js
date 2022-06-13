@@ -66,13 +66,13 @@ module.exports = class {
       // const fs = require('fs');
 
       const form = new FormData();
-      form.append("file", fs.readFileSync(dirname));
+      form.append("file", fs.readFileSync(dirname), fileName);
 
       const header = {
         headers: {
           ...form.getHeaders(),
           Accept: "application/vnd.api+json",
-          Authorization: "Bearer <access_token>",
+          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "multipart/form-data",
         },
         data: form,
