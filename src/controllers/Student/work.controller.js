@@ -10,7 +10,7 @@ const Unicheck = require("../../services/unicheck");
 module.exports = class {
   static async index(req, res) {
     try {
-      await Unicheck.auth();
+      // await Unicheck.auth();
       const { user } = req.session;
       const works = await File.findAll({
         where: { studentId: user.id },
@@ -42,10 +42,12 @@ module.exports = class {
   static async create(req, res) {
     try {
       if (req.method == "POST") {
+        
         var fileExt = path.extname(req.files.work.name).toLowerCase();
         var fileName = `${Date.now()}` + fileExt;
         var dirname = path.resolve(dir, fileName);
         var file = req.files.work.data;
+
         var bodyParams = {
           courseId: req.body.course,
           studentId: req.session.user.id,
