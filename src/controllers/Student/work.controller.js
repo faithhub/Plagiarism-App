@@ -42,7 +42,6 @@ module.exports = class {
   static async create(req, res) {
     try {
       if (req.method == "POST") {
-        
         var fileExt = path.extname(req.files.work.name).toLowerCase();
         var fileName = `${Date.now()}` + fileExt;
         var dirname = path.resolve(dir, fileName);
@@ -61,7 +60,7 @@ module.exports = class {
         }
 
         const fileContent = new Buffer.from(file, "base64").toString();
-        fs.writeFileSync(dirname, fileContent);
+        fs.writeFileSync(dirname, file);
 
         const work = await File.create(bodyParams);
         if (!work) {
@@ -69,7 +68,7 @@ module.exports = class {
           return res.redirect("back");
         }
 
-        await Unicheck.uploadFile(fileName, work.id);
+        // await Unicheck.uploadFile(fileName, work.id);
         req.flash("success", "Work uploaded successfully");
         return res.redirect("/student/works");
       }
