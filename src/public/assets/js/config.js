@@ -1,7 +1,7 @@
 "use strict";
 let config = {
     s: {
-      primary: "#097A7A",
+      primary: "#138C01",
       secondary: "#8592a3",
       success: "#71dd37",
       info: "#03c3ec",
