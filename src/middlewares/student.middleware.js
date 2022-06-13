@@ -76,6 +76,11 @@ module.exports = class {
             msg: "The work file must be a PDF file",
           };
         }
+        if (fileExt != "doc") {
+          errorParams["work"] = {
+            msg: "The work file must be a Doc file",
+          };
+        }
         if (fileSize > 20) {
           errorParams["work"] = {
             msg: "The work file size must not more than 20mb",
