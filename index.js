@@ -26,11 +26,11 @@ app.use(flash());
 //   next();
 // };
 // app.use(sessionFlash);
-app.use(fileUpload());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(fileUpload());
 //Auth
 const session = {
   secret: process.env.SESSION_SECRET,
