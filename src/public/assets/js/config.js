@@ -1,7 +1,7 @@
 "use strict";
 let config = {
-    colors: {
-      primary: "#696cff",
+    s: {
+      primary: "#097A7A",
       secondary: "#8592a3",
       success: "#71dd37",
       info: "#03c3ec",
@@ -11,11 +11,11 @@ let config = {
       black: "#000",
       white: "#fff",
       body: "#f4f5fb",
-      headingColor: "#566a7f",
-      axisColor: "#a1acb8",
-      borderColor: "#eceef1",
+      heading: "#566a7f",
+      axis: "#a1acb8",
+      border: "#eceef1",
     },
-    colors_label: {
+    s_label: {
       primary: "#666ee81a",
       secondary: "#8897aa1a",
       success: "#28d0941a",
@@ -24,11 +24,11 @@ let config = {
       danger: "#ff49611a",
       dark: "#181c211a",
     },
-    colors_dark: {
-      cardColor: "#2b2c40",
-      headingColor: "#cbcbe2",
-      axisColor: "#7071a4",
-      borderColor: "#444564",
+    s_dark: {
+      card: "#2b2c40",
+      heading: "#cbcbe2",
+      axis: "#7071a4",
+      border: "#444564",
     },
     enableMenuLocalStorage: !0,
   },
