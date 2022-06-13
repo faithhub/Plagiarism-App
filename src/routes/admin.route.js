@@ -6,6 +6,7 @@ const dashboardController = require("../controllers/Admin/dashboard.controller")
 const lecturerController = require("../controllers/Admin/lecturer.controller");
 const courseController = require("../controllers/Admin/course.controller");
 const studentController = require("../controllers/Admin/student.controller");
+const workController = require("../controllers/Admin/file.controller");
 
 const router = express.Router();
 
@@ -119,4 +120,8 @@ router.post(
   dashboardController.updatePassword
 );
 
+router.get("/files", authMiddleware.auth, workController.index);
+
+router.get("/view/file/:id", authMiddleware.auth, workController.view);
+router.get("/delete/file/:id", authMiddleware.auth, workController.delete);
 module.exports = router;

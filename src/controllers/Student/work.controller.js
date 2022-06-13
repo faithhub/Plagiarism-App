@@ -68,7 +68,7 @@ module.exports = class {
           return res.redirect("back");
         }
 
-        // await Unicheck.uploadFile(fileName, work.id);
+        await Unicheck.uploadFile(fileName, work.id);
         req.flash("success", "Work uploaded successfully");
         return res.redirect("/student/works");
       }

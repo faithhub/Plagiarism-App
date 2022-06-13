@@ -60,27 +60,28 @@ module.exports = class {
       const accessToken = auth.access_token;
       var dirname = path.resolve(dir, fileName);
 
-      var form = new FormData();
-      form.append("file", fs.createReadStream(dirname));
+      // var form = new FormData();
+      // form.append("file", fs.createReadStream(dirname));
+      // const FormData = require('form-data');
+      // const fs = require('fs');
 
-      //   var accessToken =
-      //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzOTczYjFhYTFmY2Q2OWM2NzdiNSIsImp0aSI6IjI2NjMwMjEiLCJpYXQiOjE2NTUwNjU3NjcsIm5iZiI6MTY1NTA2NTc2NywiZXhwIjoxNjU3NjU3NzY3LCJzdWIiOiI4MzcxMjgiLCJzY29wZXMiOltdfQ.RqPQ-a8ZZJ7As8-Plbsw_b-zNP7Pna61H_g4I5PKTaxdrJSohl0Gmhy2epsQ25Et3RYKQY0q68pVZr3hFVrWZou1akfplcTnuNRoaTd8Y2h4dFsD21TczbJhxS0XUiNNxV0V1B3UFvu0ookv4-WjYnwrSSwD6ouRPtk3Ggf1h8E";
+      const form = new FormData();
+      form.append("file", fs.readFileSync(dirname));
+
       const header = {
         headers: {
-          Authorization: "Bearer " + accessToken,
-          "content-type": "multipart/form-data",
+          ...form.getHeaders(),
           Accept: "application/vnd.api+json",
+          Authorization: "Bearer <access_token>",
+          "Content-Type": "multipart/form-data",
         },
         data: form,
-        timeout: 10000,
+        timeout: 50000,
         validateStatus: function (status) {
           return status < 500; // Resolve only if the status code is less than 500
         },
       };
-      //   const params = {
-      //     file: fs.createReadStream(dirname),
-      //   };
-      //   console.log(form);
+
       const data = await axios.post(`${baseUrl}/files`, form, header);
       console.log(fileId, fileName, data.data);
     } catch (error) {

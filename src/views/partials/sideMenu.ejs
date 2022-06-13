@@ -182,8 +182,19 @@
         </li>
       </ul>
     </li>
-
     <!-- Misc -->
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">Work Files</span>
+    </li>
+    <li
+      class="menu-item <% if (locals.title === 'All Files') { %> active <% } %>"
+    >
+      <a href="/admin/files" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-file"></i>
+        <div data-i18n="Work Files">Work Files</div>
+      </a>
+    </li>
+
     <li class="menu-header small text-uppercase">
       <span class="menu-header-text">Settings</span>
     </li>
