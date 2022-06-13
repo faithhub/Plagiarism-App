@@ -38,6 +38,7 @@ module.exports = (method) => {
           check("course", "Course is required").trim().not().isEmpty(),
           check("name", "The Name is required")
             .trim()
+            .not()
             .isEmpty()
             .isLength({
               min: 3,
@@ -48,6 +49,8 @@ module.exports = (method) => {
             })
             .withMessage("Your name must be less than 50 characters long"),
           check("userId", "The Lecturer ID is required")
+            .trim()
+            .not()
             .isEmpty()
             .custom((value) => {
               return User.findOne({ where: { username: value } }).then(
@@ -60,6 +63,7 @@ module.exports = (method) => {
             }),
           check("email", "The Email is required")
             .trim()
+            .not()
             .isEmpty()
             .isEmail()
             .normalizeEmail()
@@ -76,6 +80,7 @@ module.exports = (method) => {
               });
             }),
           check("password", "The Password is required")
+            .not()
             .isEmpty()
             .isLength({
               min: 6,
@@ -88,6 +93,7 @@ module.exports = (method) => {
             .matches(/(?=.*?[0-9])/)
             .withMessage("Password must have at least one Number"),
           check("confirmPassword", "The Confrim Password is required")
+            .not()
             .isEmpty()
             .custom((value, { req }) => {
               if (value !== req.body.password) {

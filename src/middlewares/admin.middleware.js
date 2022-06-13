@@ -7,11 +7,13 @@ const Op = Sequelize.Op;
 module.exports = class {
   static async createLecturer(req, res, next) {
     const errors = validationResult(req);
+    console.log(req.body);
     if (!errors.isEmpty()) {
+      // console.log(errors.mapped());
       req.flash("error", "All fields are required");
-      res.locals.message = { errors: errors.mapped() };
+      req.flash("errors", errors.mapped());
       res.locals.title = "Add Lecturer";
-      return res.render("pages/admin/lecturer/create");
+      return res.redirect("back");
     }
     next();
   }

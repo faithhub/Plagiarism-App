@@ -49,7 +49,7 @@
                     <h4 class="fw-bold">Add Lecturer</h4>
                   </div>
                   <div class="card-body">
-                    <form method="post" action="">
+                    <form method="post" action="/admin/add-lecturer">
                       <div class="row mb-5">
                         <label
                           class="col-sm-2 col-form-label"
@@ -74,11 +74,12 @@
                               <%})%> <%}%>
                             </select>
                           </div>
-                          <% if (message.errors.course) { %>
+                          <% if (locals.messages.errors) { %> <% if
+                          (locals.messages.errors[0].course) { %>
                           <label class="error"
-                            ><%= message.errors.course.msg %></label
+                            ><%= locals.messages.errors[0].course.msg %></label
                           >
-                          <% } %>
+                          <% } } %>
                         </div>
                       </div>
                       <div class="row mb-5">
@@ -104,11 +105,12 @@
                               aria-describedby="basic-icon-default-fullname2"
                             />
                           </div>
-                          <% if (message.errors.userId) { %>
+                          <% if (locals.messages.errors) { %> <% if
+                          (locals.messages.errors[0].userId) { %>
                           <label class="error"
-                            ><%= message.errors.userId.msg %></label
+                            ><%= locals.messages.errors[0].userId.msg %></label
                           >
-                          <% } %>
+                          <% } } %>
                         </div>
                       </div>
                       <div class="row mb-5">
@@ -134,11 +136,12 @@
                               aria-describedby="basic-icon-default-fullname2"
                             />
                           </div>
-                          <% if (message.errors.name) { %>
+                          <% if (locals.messages.errors) { %> <% if
+                          (locals.messages.errors[0].name) { %>
                           <label class="error"
-                            ><%= message.errors.name.msg %></label
+                            ><%= locals.messages.errors[0].name.msg %></label
                           >
-                          <% } %>
+                          <% } } %>
                         </div>
                       </div>
                       <div class="row mb-5">
@@ -162,11 +165,12 @@
                               aria-describedby="basic-icon-default-email2"
                             />
                           </div>
-                          <% if (message.errors.email) { %>
+                          <% if (locals.messages.errors) { %> <% if
+                          (locals.messages.errors[0].email) { %>
                           <label class="error"
-                            ><%= message.errors.email.msg %></label
+                            ><%= locals.messages.errors[0].email.msg %></label
                           >
-                          <% } %>
+                          <% } } %>
                         </div>
                       </div>
                       <div class="row mb-5">
@@ -193,11 +197,13 @@
                             />
                           </div>
 
-                          <% if (message.errors.password) { %>
+                          <% if (locals.messages.errors) { %> <% if
+                          (locals.messages.errors[0].password) { %>
                           <label class="error"
-                            ><%= message.errors.password.msg %></label
+                            ><%= locals.messages.errors[0].password.msg
+                            %></label
                           >
-                          <% } %>
+                          <% } } %>
                         </div>
                       </div>
                       <div class="row mb-5">
@@ -223,11 +229,13 @@
                               aria-describedby="basic-icon-default-phone2"
                             />
                           </div>
-                          <% if (message.errors.confirmPassword) { %>
+                          <% if (locals.messages.errors) { %> <% if
+                          (locals.messages.errors[0].confirmPassword) { %>
                           <label class="error"
-                            ><%= message.errors.confirmPassword.msg %></label
+                            ><%= locals.messages.errors[0].confirmPassword.msg
+                            %></label
                           >
-                          <% } %>
+                          <% } } %>
                         </div>
                       </div>
                       <div class="row justify-content-end">
