@@ -124,4 +124,5 @@ router.get("/files", authMiddleware.auth, workController.index);
 
 router.get("/view/file/:id", authMiddleware.auth, workController.view);
 router.get("/delete/file/:id", authMiddleware.auth, workController.delete);
+
 module.exports = router;

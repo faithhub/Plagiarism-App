@@ -3,13 +3,12 @@ const controller = require("../controllers/Lecturer/lecturer.controller");
 const authMiddleware = require("../middlewares/auth.middleware");
 const settingsController = require("../controllers/Lecturer/settings.controller");
 const studentMiddleware = require("../middlewares/student.middleware");
+const workController = require("../controllers/Lecturer/file.controller");
 const validation = require("../validations/main.validation");
 
 const router = express.Router();
 
 router.get("/", authMiddleware.auth, controller.index);
-
-router.get("/files", authMiddleware.auth, controller.files);
 
 router.get("/profile", authMiddleware.auth, settingsController.profile);
 
@@ -30,5 +29,9 @@ router.post(
   studentMiddleware.updatePassword,
   settingsController.updatePassword
 );
+
+router.get("/files", authMiddleware.auth, workController.index);
+
+router.get("/view/file/:id", authMiddleware.auth, workController.view);
 
 module.exports = router;

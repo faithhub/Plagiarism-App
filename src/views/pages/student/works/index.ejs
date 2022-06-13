@@ -78,6 +78,7 @@
                           <th>Lecturer</th>
                           <th>Work Title</th>
                           <th>Work File</th>
+                          <th>Plagiarism Status</th>
                           <th>Date Uploaded</th>
                           <th>Action</th>
                         </tr>
@@ -98,6 +99,11 @@
                               >View</a
                             >
                           </td>
+                          <td>
+                            <button class="btn btn-sm btn-label-primary">
+                              Pending
+                            </button>
+                          </td>
                           <td><%= locals.moment(work.createdAt) %></td>
                           <td>
                             <a
@@ -107,11 +113,11 @@
                             >
                               Delete
                             </a>
-                            <!-- <a
-                              href="/admin/edit/lecturer/<%= work.id %>"
-                              class="btn btn-sm btn-success"
-                              >Edit</a
-                            > -->
+                            <a
+                              href="/student/view/file/<%= work.id %>"
+                              class="btn btn-sm btn-dark"
+                              >View</a
+                            >
                           </td>
                         </tr>
                         <% }) %> <% } %>

@@ -116,4 +116,38 @@ module.exports = class {
       res.redirect("back" || "/student");
     }
   }
+
+  static async view(req, res) {
+    try {
+      const { id } = req.params;
+      const { user } = req.session;
+      const work = await File.findOne({
+        where: { id, studentId: user.id },
+        include: [
+          {
+            model: Course,
+            as: "course",
+            include: [
+              {
+                model: User,
+                as: "lecturer",
+                attributes: ["id", "name", "username", "email"],
+              },
+            ],
+          },
+          {
+            model: User,
+            as: "student",
+          },
+        ],
+      });
+      res.locals.title = "File";
+      res.locals.work = work;
+      res.locals.moment = moment;
+      res.render("pages/student/works/view");
+    } catch (error) {
+      req.flash("error", error.message);
+      res.redirect("back" || "/student");
+    }
+  }
 };

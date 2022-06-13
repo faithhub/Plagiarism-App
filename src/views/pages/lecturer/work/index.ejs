@@ -50,23 +50,8 @@
                       <h5
                         class="card-title mb-0 col-md-8 d-flex justify-content-start align-items-center"
                       >
-                        <b>All Lecturers</b>
+                        <b>Works</b>
                       </h5>
-                      <div
-                        class="dt-buttons col-md-4 d-flex justify-content-end align-items-center"
-                      >
-                        <a
-                          class="dt-button create-new btn btn-primary"
-                          href="/admin/add-lecturer"
-                        >
-                          <span
-                            ><i class="bx bx-plus me-sm-2"></i>
-                            <span class="d-none d-sm-inline-block"
-                              >Add New Record</span
-                            ></span
-                          >
-                        </a>
-                      </div>
                     </div>
                   </div>
                   <div class="card-datatable table-responsive">
@@ -74,30 +59,43 @@
                       <thead>
                         <tr>
                           <th>S/N</th>
-                          <th>User ID</th>
-                          <th>Name</th>
-                          <th>Email Address</th>
-                          <th>Date Reg.</th>
+                          <th>Course</th>
+                          <th>Student</th>
+                          <th>Work Title</th>
+                          <th>Work File</th>
+                          <th>Plagiarism Check</th>
+                          <th>Date Uploaded</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <% if(locals.lecturers){%> <%
-                        lecturers.forEach(function(user) { %>
+                        <% if(locals.works){%> <% works.forEach(function(work) {
+                        %>
                         <tr>
                           <td><%= sn++ %></td>
-                          <td><%= user.username %></td>
-                          <td><%= user.name %></td>
-                          <td><%= user.email %></td>
+                          <td><%= work.course.title %></td>
+                          <td><%= work.student.name %></td>
+                          <td><%= work.fileTitle %></td>
                           <td>
-                            <%= moment(user.createdAt).format('Do MMMM, YYYY')
-                            %>
+                            <a
+                              href="/files/<%= work.file %>"
+                              target="blank"
+                              class="btn btn-sm btn-success"
+                              >View</a
+                            >
                           </td>
                           <td>
-                            <a href="" class="btn btn-sm btn-danger">
-                              Delete
-                            </a>
-                            <a href="" class="btn btn-sm btn-success">Edit</a>
+                            <button class="btn btn-sm btn-label-primary">
+                              Pending
+                            </button>
+                          </td>
+                          <td><%= locals.moment(work.createdAt) %></td>
+                          <td>
+                            <a
+                              href="/lecturer/view/file/<%= work.id %>"
+                              class="btn btn-sm btn-primary mb-2"
+                              >view</a
+                            >
                           </td>
                         </tr>
                         <% }) %> <% } %>

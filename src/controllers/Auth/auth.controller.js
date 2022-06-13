@@ -49,6 +49,7 @@ module.exports = class {
         if (userData.type == "lecturer") {
           userData["courseTitle"] = user.course.title;
           userData["courseCode"] = user.course.code;
+          userData["courseId"] = user.courseId;
         }
         req.session.user = userData;
         res.locals.user = req.session.user;

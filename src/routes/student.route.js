@@ -42,5 +42,6 @@ router.post(
 );
 
 router.get("/delete/file/:id", authMiddleware.auth, workController.delete);
+router.get("/view/file/:id", authMiddleware.auth, workController.view);
 
 module.exports = router;

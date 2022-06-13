@@ -1,4 +1,4 @@
-const { User, Course } = require("../../database/models");
+const { User, Course, File } = require("../../database/models");
 const bcrypt = require("bcrypt");
 
 module.exports = class {
@@ -8,11 +8,13 @@ module.exports = class {
       const lecturer = await User.count({ where: { type: "lecturer" } });
       const admin = await User.count({ where: { type: "admin" } });
       const course = await Course.count();
+      const file = await File.count();
       const dataCount = {
         student: student,
         admin: admin,
         course: course,
         lecturer: lecturer,
+        file: file,
       };
       res.locals.title = "Dashboard";
       res.locals.dataCount = dataCount;
