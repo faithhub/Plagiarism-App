@@ -34,4 +34,7 @@ router.get("/files", authMiddleware.auth, workController.index);
 
 router.get("/view/file/:id", authMiddleware.auth, workController.view);
 
+router.get("/check/file/:id", authMiddleware.auth, workController.check);
+router.get("/initiate/file/:id", authMiddleware.auth, workController.initiate);
+
 module.exports = router;

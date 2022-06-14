@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.Course, { as: "course", foreignKey: "courseId" });
       this.belongsTo(models.User, { as: "student", foreignKey: "studentId" });
+      this.hasOne(models.Unicheck, { as: "unicheck", foreignKey: "fileId" });
     }
   }
   File.init(

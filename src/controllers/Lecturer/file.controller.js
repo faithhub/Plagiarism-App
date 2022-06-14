@@ -4,6 +4,7 @@ const moment = require("moment");
 const path = require("path");
 const fs = require("fs");
 const dir = "src/public/files";
+const unicheckService = require("../../services/unicheck");
 
 module.exports = class {
   static async index(req, res) {
@@ -81,17 +82,50 @@ module.exports = class {
   static async check(req, res) {
     try {
       const { id } = req.params;
-      const work = await File.findByPk(id);
-      var dirname = path.resolve(dir, work.file);
-      if (fs.existsSync(dirname)) {
-        fs.unlinkSync(dirname);
-      }
-      await File.destroy({ where: { id } });
-      req.flash("success", "File deleted successfully");
+      const work = await File.findOne({
+        where: { id },
+        include: [
+          {
+            model: Unicheck,
+            as: "unicheck",
+          },
+        ],
+        raw: true,
+        nest: true,
+      });
+      await unicheckService.confirmCheck(
+        work.unicheck.id,
+        work.unicheck.similarityId
+      );
       return res.redirect("back");
     } catch (error) {
       req.flash("error", error.message);
-      res.redirect("back" || "/admin");
+      res.redirect("back" || "/lectuere");
+    }
+  }
+
+  static async initiate(req, res) {
+    try {
+      const { id } = req.params;
+      const work = await File.findOne({
+        where: { id },
+        include: [
+          {
+            model: Unicheck,
+            as: "unicheck",
+          },
+        ],
+        raw: true,
+        nest: true,
+      });
+      await unicheckService.startCheck(
+        work.unicheck.id,
+        work.unicheck.unicheckId
+      );
+      return res.redirect("back");
+    } catch (error) {
+      req.flash("error", error.message);
+      res.redirect("back" || "/lectuere");
     }
   }
 };

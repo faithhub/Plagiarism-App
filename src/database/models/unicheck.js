@@ -17,9 +17,12 @@ module.exports = (sequelize, DataTypes) => {
       courseId: DataTypes.STRING,
       studentId: DataTypes.STRING,
       unicheckId: DataTypes.STRING,
+      similarityId: DataTypes.STRING,
+      exportFile: DataTypes.STRING,
+      percentage: DataTypes.STRING,
       status: {
         type: DataTypes.ENUM,
-        values: ["Pending", "Checked"],
+        values: ["Pending", "Initiate", "Checked"],
       },
     },
     {

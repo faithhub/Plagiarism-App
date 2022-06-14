@@ -10,6 +10,19 @@ module.exports = {
       },
       unicheckId: {
         type: Sequelize.STRING,
+        allowNull: true,
+      },
+      similarityId: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      exportFile: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      percentage: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       fileId: {
         type: Sequelize.INTEGER,
@@ -34,7 +47,7 @@ module.exports = {
       },
       status: {
         type: Sequelize.ENUM,
-        values: ["Pending", "Checked"],
+        values: ["Pending", "Initiate", "Checked"],
       },
       createdAt: {
         allowNull: false,
