@@ -1,4 +1,4 @@
-const { User, Course, File } = require("../../database/models");
+const { User, Course, File, Unicheck } = require("../../database/models");
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 const path = require("path");
@@ -15,6 +15,13 @@ module.exports = class {
           {
             model: Course,
             as: "course",
+            include: [
+              {
+                model: Unicheck,
+                as: "unicheck",
+                attributes: ["id", "status"],
+              },
+            ],
           },
           {
             model: User,
@@ -47,6 +54,11 @@ module.exports = class {
                 model: User,
                 as: "lecturer",
                 attributes: ["id", "name", "username", "email"],
+              },
+              {
+                model: Unicheck,
+                as: "unicheck",
+                attributes: ["id", "status"],
               },
             ],
           },

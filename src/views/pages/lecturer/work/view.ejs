@@ -124,6 +124,12 @@
                           </h6>
                           <h6 class="app-brand demo text-body fw-bolder">
                             Plagiarism:
+                            <button
+                              class="btn btn-sm btn-secondary ml-3"
+                              style="margin-left: 1rem"
+                            >
+                              <%= work.course.unicheck.status %>
+                            </button>
                           </h6>
                           <h6 class="app-brand demo text-body fw-bolder">
                             Date Submitted: <%= locals.moment(work.createdAt) %>

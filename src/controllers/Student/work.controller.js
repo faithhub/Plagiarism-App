@@ -1,16 +1,15 @@
-const { User, Course, File } = require("../../database/models");
+const { User, Course, File, Unicheck } = require("../../database/models");
 const moment = require("moment");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const path = require("path");
 const fs = require("fs");
 const dir = "src/public/files";
-const Unicheck = require("../../services/unicheck");
+const unicheckService = require("../../services/unicheck");
 
 module.exports = class {
   static async index(req, res) {
     try {
-      // await Unicheck.auth();
       const { user } = req.session;
       const works = await File.findAll({
         where: { studentId: user.id },
@@ -23,6 +22,11 @@ module.exports = class {
                 model: User,
                 as: "lecturer",
                 attributes: ["id", "name"],
+              },
+              {
+                model: Unicheck,
+                as: "unicheck",
+                attributes: ["id", "status"],
               },
             ],
           },
@@ -41,14 +45,16 @@ module.exports = class {
 
   static async create(req, res) {
     try {
+      const { user } = req.session;
       if (req.method == "POST") {
         var fileExt = path.extname(req.files.work.name).toLowerCase();
         var fileName = `${Date.now()}` + fileExt;
         var dirname = path.resolve(dir, fileName);
         var file = req.files.work.data;
+        const courseId = req.body.course;
 
         var bodyParams = {
-          courseId: req.body.course,
+          courseId: courseId,
           studentId: req.session.user.id,
           fileTitle: req.body.workTile,
           file: fileName,
@@ -68,7 +74,7 @@ module.exports = class {
           return res.redirect("back");
         }
 
-        await Unicheck.uploadFile(fileName, work.id);
+        await unicheckService.uploadFile(fileName, work.id, courseId, user.id);
         req.flash("success", "Work uploaded successfully");
         return res.redirect("/student/works");
       }
@@ -132,6 +138,11 @@ module.exports = class {
                 model: User,
                 as: "lecturer",
                 attributes: ["id", "name", "username", "email"],
+              },
+              {
+                model: Unicheck,
+                as: "unicheck",
+                attributes: ["id", "status"],
               },
             ],
           },

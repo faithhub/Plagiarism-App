@@ -8,6 +8,7 @@ const clientSecret = "8a6ff76bbb735ded85208afaf52b98e34d603869";
 const grantType = "client_credentials";
 const baseUrl = "https://api.unicheck.com";
 const dir = "src/public/files";
+const { Unicheck } = require("../database/models");
 
 axios.interceptors.response.use(
   function (response) {
@@ -37,7 +38,7 @@ module.exports = class {
         },
       };
       const params = {
-        grant_type: "client_credentials",
+        grant_type: grantType,
         client_id: clientId,
         client_secret: clientSecret,
       };
@@ -54,16 +55,11 @@ module.exports = class {
     }
   }
 
-  static async uploadFile(fileName, fileId) {
+  static async uploadFile(fileName, fileId, courseId, studentId) {
     try {
       const auth = await this.auth();
       const accessToken = auth.access_token;
       var dirname = path.resolve(dir, fileName);
-
-      // var form = new FormData();
-      // form.append("file", fs.createReadStream(dirname));
-      // const FormData = require('form-data');
-      // const fs = require('fs');
 
       const form = new FormData();
       form.append("file", fs.readFileSync(dirname), fileName);
@@ -82,8 +78,16 @@ module.exports = class {
         },
       };
 
-      const data = await axios.post(`${baseUrl}/files`, form, header);
-      console.log(fileId, fileName, data.data);
+      const { data } = await axios.post(`${baseUrl}/files`, form, header);
+
+      const paramsBody = {
+        fileId: fileId,
+        courseId: courseId,
+        studentId: studentId,
+        unicheckId: data.data.id,
+        status: "Pending",
+      };
+      await Unicheck.create(paramsBody);
     } catch (error) {
       console.log(error);
     }

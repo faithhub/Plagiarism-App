@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Course extends Model {
+  class Unicheck extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,21 +9,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasOne(models.User, { as: "lecturer", foreignKey: "courseId" });
-      this.hasOne(models.Unicheck, { as: "unicheck", foreignKey: "courseId" });
     }
   }
-  Course.init(
+  Unicheck.init(
     {
-      title: DataTypes.STRING,
-      code: DataTypes.STRING,
+      fileId: DataTypes.STRING,
+      courseId: DataTypes.STRING,
+      studentId: DataTypes.STRING,
+      unicheckId: DataTypes.STRING,
+      status: {
+        type: DataTypes.ENUM,
+        values: ["Pending", "Checked"],
+      },
     },
     {
       sequelize,
-      modelName: "Course",
-      paranoid: true,
-      timestamps: true,
+      modelName: "Unicheck",
     }
   );
-  return Course;
+  return Unicheck;
 };

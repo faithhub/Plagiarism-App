@@ -63,7 +63,7 @@
                           <th>Student</th>
                           <th>Work Title</th>
                           <th>Work File</th>
-                          <th>Plagiarism Check</th>
+                          <th>Plagiarism Status</th>
                           <th>Date Uploaded</th>
                           <th>Action</th>
                         </tr>
@@ -86,7 +86,7 @@
                           </td>
                           <td>
                             <button class="btn btn-sm btn-label-primary">
-                              Pending
+                              <%= work.course.unicheck.status %>
                             </button>
                           </td>
                           <td><%= locals.moment(work.createdAt) %></td>
