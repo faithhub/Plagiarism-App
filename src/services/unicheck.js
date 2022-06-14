@@ -92,4 +92,63 @@ module.exports = class {
       console.log(error);
     }
   }
+
+  static async startCheck(fileId) {
+    try {
+      const auth = await this.auth();
+      const accessToken = auth.access_token;
+
+      const header = {
+        headers: {
+          Accept: "application/vnd.api+json",
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/vnd.api+json",
+        },
+        data: form,
+        timeout: 50000,
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      };
+      const params = {
+        data: {
+          type: "similarityCheck",
+          attributes: {
+            search_types: {
+              web: true,
+              library: false,
+            },
+            parameters: {
+              sensitivity: {
+                percentage: 0,
+                words_count: 8,
+              },
+            },
+          },
+        },
+        relationships: {
+          file: {
+            data: {
+              id: fileId,
+              type: "file",
+            },
+          },
+        },
+      };
+
+      const { data } = await axios.post(
+        `${baseUrl}/similarity/checks`,
+        params,
+        header
+      );
+
+      console.log(data);
+      // const paramsBody = {
+      //   checkId: fileId,
+      // };
+      // await Unicheck.update(paramsBody, { where: { unicheckId: fileId } });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 };
