@@ -78,6 +78,7 @@ module.exports = class {
         req.flash("success", "Work uploaded successfully");
         return res.redirect("/student/works");
       }
+
       const courses = await Course.findAll({
         where: {
           "$lecturer.id$": {

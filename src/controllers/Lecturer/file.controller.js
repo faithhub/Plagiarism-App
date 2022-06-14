@@ -78,20 +78,20 @@ module.exports = class {
     }
   }
 
-  // static async delete(req, res) {
-  //   try {
-  //     const { id } = req.params;
-  //     const work = await File.findByPk(id);
-  //     var dirname = path.resolve(dir, work.file);
-  //     if (fs.existsSync(dirname)) {
-  //       fs.unlinkSync(dirname);
-  //     }
-  //     await File.destroy({ where: { id } });
-  //     req.flash("success", "File deleted successfully");
-  //     return res.redirect("back");
-  //   } catch (error) {
-  //     req.flash("error", error.message);
-  //     res.redirect("back" || "/admin");
-  //   }
-  // }
+  static async check(req, res) {
+    try {
+      const { id } = req.params;
+      const work = await File.findByPk(id);
+      var dirname = path.resolve(dir, work.file);
+      if (fs.existsSync(dirname)) {
+        fs.unlinkSync(dirname);
+      }
+      await File.destroy({ where: { id } });
+      req.flash("success", "File deleted successfully");
+      return res.redirect("back");
+    } catch (error) {
+      req.flash("error", error.message);
+      res.redirect("back" || "/admin");
+    }
+  }
 };
