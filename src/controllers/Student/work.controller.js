@@ -17,6 +17,18 @@ module.exports = class {
           {
             model: Course,
             as: "course",
+            include: [
+              {
+                model: User,
+                as: "lecturer",
+                attributes: ["id", "name"],
+              },
+              {
+                model: Unicheck,
+                as: "unicheck",
+                attributes: ["id", "status", "percentage", "exportFile"],
+              },
+            ],
           },
         ],
       });
