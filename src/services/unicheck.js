@@ -137,16 +137,16 @@ module.exports = class {
         },
       };
 
-      // const { data } = await axios.post(
-      //   `${baseUrl}/similarity/checks`,
-      //   params,
-      //   header
-      // );
-      // const paramsBody = {
-      //   similarityId: data.data.id,
-      //   status: "Initiate",
-      // };
-      // await Unicheck.update(paramsBody, { where: { id: workId } });
+      const { data } = await axios.post(
+        `${baseUrl}/similarity/checks`,
+        params,
+        header
+      );
+      const paramsBody = {
+        similarityId: data.data.id,
+        status: "Initiate",
+      };
+      await Unicheck.update(paramsBody, { where: { id: workId } });
       // console.log(data);
     } catch (error) {
       console.log(error);
