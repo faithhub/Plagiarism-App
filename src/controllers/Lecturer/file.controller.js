@@ -59,7 +59,7 @@ module.exports = class {
               {
                 model: Unicheck,
                 as: "unicheck",
-                attributes: ["id", "status"],
+                attributes: ["id", "status", "percentage", "exportFile"],
               },
             ],
           },

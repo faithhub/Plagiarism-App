@@ -28,6 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Unicheck",
+      paranoid: true,
+      timestamps: true,
     }
   );
   return Unicheck;

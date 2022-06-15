@@ -123,15 +123,6 @@
                             Work Title: <%= work.fileTitle %>
                           </h6>
                           <h6 class="app-brand demo text-body fw-bolder">
-                            Plagiarism:
-                            <button
-                              class="btn btn-sm btn-secondary ml-3"
-                              style="margin-left: 1rem"
-                            >
-                              <%= work.course.unicheck.status %>
-                            </button>
-                          </h6>
-                          <h6 class="app-brand demo text-body fw-bolder">
                             Date Submitted: <%= locals.moment(work.createdAt) %>
                           </h6>
                           <h6 class="app-brand demo text-body fw-bolder">
@@ -145,6 +136,58 @@
                               </a>
                             </div>
                           </h6>
+                        </div>
+
+                        <div
+                          class="col-md-6 mb-md-0 mb-4 justify-content-md-end"
+                        >
+                          <div class="d-flex svg-illustration">
+                            <h4 class="app-brand demo text-body fw-bolder">
+                              Work Plagiarism Details
+                            </h4>
+                          </div>
+                          <% if( work.course.unicheck.status == "Pending"){%>
+                          <h6 class="app-brand demo text-body fw-bolder">
+                            Plagiarism Status:
+                            <button
+                              class="btn btn-sm btn-secondary ml-3"
+                              style="margin-left: 1rem"
+                            >
+                              <b><%= work.course.unicheck.status %></b>
+                            </button>
+                          </h6>
+                          <%}%> <% if( work.course.unicheck.status ==
+                          "Checked"){%>
+                          <h6 class="app-brand demo text-body fw-bolder">
+                            Plagiarism Percentage:
+                            <button
+                              class="btn btn-sm btn-success text-black ml-3"
+                              style="margin-left: 1rem"
+                            >
+                              <b> <%= work.course.unicheck.status %></b>
+                            </button>
+                          </h6>
+                          <h6 class="app-brand demo text-body fw-bolder">
+                            Plagiarism Percentage:
+                            <button
+                              class="btn btn-sm btn-success text-black ml-3"
+                              style="margin-left: 1rem"
+                            >
+                              <b> <%= work.course.unicheck.percentage %>%</b>
+                            </button>
+                          </h6>
+                          <h6 class="app-brand demo text-body fw-bolder">
+                            Plagiarism Report:
+                            <a
+                              href="/files/exports/<%= work.course.unicheck.exportFile %>"
+                              download=""
+                              class="btn btn-sm btn-secondary text-black ml-3"
+                              style="margin-left: 1rem"
+                            >
+                              <b>Download</b>
+                            </a>
+                          </h6>
+                          <%}%>
                         </div>
                       </div>
                     </div>

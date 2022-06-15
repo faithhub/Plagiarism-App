@@ -49,6 +49,9 @@ module.exports = {
         type: Sequelize.ENUM,
         values: ["Pending", "Initiate", "Checked"],
       },
+      deletedAt: {
+        type: Sequelize.DATE,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

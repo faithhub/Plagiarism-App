@@ -17,21 +17,10 @@ module.exports = class {
           {
             model: Course,
             as: "course",
-            include: [
-              {
-                model: User,
-                as: "lecturer",
-                attributes: ["id", "name"],
-              },
-              {
-                model: Unicheck,
-                as: "unicheck",
-                attributes: ["id", "status"],
-              },
-            ],
           },
         ],
       });
+      console.log(works);
       res.locals.works = works;
       res.locals.moment = moment;
       res.locals.sn = 1;
@@ -143,7 +132,7 @@ module.exports = class {
               {
                 model: Unicheck,
                 as: "unicheck",
-                attributes: ["id", "status"],
+                attributes: ["id", "status", "percentage", "exportFile"],
               },
             ],
           },

@@ -1,3 +1,4 @@
+const { File, Course, User, Unicheck } = require("../../database/models");
 module.exports = class {
   static async index(req, res) {
     try {
@@ -9,6 +10,30 @@ module.exports = class {
       //   admin: admin,
       //   lecturer: lecturer,
       // };
+
+      const works = await File.findAll({
+        where: { studentId: 4 },
+        include: [
+          {
+            model: Course,
+            as: "course",
+            include: [
+              {
+                model: User,
+                as: "lecturer",
+                attributes: ["id", "name"],
+              },
+              {
+                model: Unicheck,
+                as: "unicheck",
+                attributes: ["id", "status", "percentage", "exportFile"],
+              },
+            ],
+          },
+        ],
+        distinct: true,
+      });
+      console.log(works);
       res.locals.title = "Dashboard";
       res.render("pages/student/dashboard/index");
     } catch (error) {
