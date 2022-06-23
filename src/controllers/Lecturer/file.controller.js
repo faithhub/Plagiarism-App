@@ -13,6 +13,8 @@ module.exports = class {
       var arrayWork = [];
       const works = await File.findAll({
         where: { courseId: user.courseId },
+        raw: true,
+        nest: true,
         include: [
           {
             model: Course,
@@ -37,6 +39,8 @@ module.exports = class {
         };
         arrayWork.push(neww);
       }
+
+      console.log(arrayWork);
       res.locals.title = "All Files";
       res.locals.works = arrayWork;
       res.locals.moment = moment;
