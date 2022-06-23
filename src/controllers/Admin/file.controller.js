@@ -8,7 +8,10 @@ const dir = "src/public/files";
 module.exports = class {
   static async index(req, res) {
     try {
+      var arrayWork = [];
       const works = await File.findAll({
+        raw: true,
+        nest: true,
         include: [
           {
             model: Course,
@@ -19,11 +22,6 @@ module.exports = class {
                 as: "lecturer",
                 attributes: ["id", "name"],
               },
-              {
-                model: Unicheck,
-                as: "unicheck",
-                attributes: ["id", "status", "percentage", "exportFile"],
-              },
             ],
           },
           {
@@ -32,12 +30,27 @@ module.exports = class {
           },
         ],
       });
+
+      for (const work of works) {
+        const unicheck = await Unicheck.findOne({
+          where: { courseId: work.course.id },
+          raw: true,
+          nest: true,
+        });
+        work.course["unicheck"] = unicheck;
+        var neww = {
+          ...work,
+        };
+        arrayWork.push(neww);
+      }
+
       res.locals.title = "All Files";
-      res.locals.works = works;
+      res.locals.works = arrayWork;
       res.locals.moment = moment;
       res.locals.sn = 1;
       res.render("pages/admin/work/index");
     } catch (error) {
+      console.log(error);
       req.flash("error", error.message);
       res.redirect("back" || "/admin");
     }

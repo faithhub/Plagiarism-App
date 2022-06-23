@@ -11,7 +11,10 @@ module.exports = class {
   static async index(req, res) {
     try {
       const { user } = req.session;
+      var arrayWork = [];
       const works = await File.findAll({
+        raw: true,
+        nest: true,
         where: { studentId: user.id },
         include: [
           {
@@ -23,17 +26,25 @@ module.exports = class {
                 as: "lecturer",
                 attributes: ["id", "name"],
               },
-              {
-                model: Unicheck,
-                as: "unicheck",
-                attributes: ["id", "status", "percentage", "exportFile"],
-              },
             ],
           },
         ],
       });
-      console.log(works);
-      res.locals.works = works;
+
+      for (const work of works) {
+        const unicheck = await Unicheck.findOne({
+          where: { courseId: work.course.id },
+          raw: true,
+          nest: true,
+        });
+        work.course["unicheck"] = unicheck;
+        var neww = {
+          ...work,
+        };
+        arrayWork.push(neww);
+      }
+      console.log(arrayWork);
+      res.locals.works = arrayWork;
       res.locals.moment = moment;
       res.locals.sn = 1;
       res.locals.title = "Works";
@@ -93,8 +104,6 @@ module.exports = class {
             attributes: ["id", "name", "email"],
           },
         ],
-        raw: true,
-        nest: true,
       });
       res.locals.courses = courses;
       res.locals.title = "Submit Work";

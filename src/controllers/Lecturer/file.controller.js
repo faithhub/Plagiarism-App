@@ -10,19 +10,13 @@ module.exports = class {
   static async index(req, res) {
     try {
       const { user } = req.session;
+      var arrayWork = [];
       const works = await File.findAll({
         where: { courseId: user.courseId },
         include: [
           {
             model: Course,
             as: "course",
-            include: [
-              {
-                model: Unicheck,
-                as: "unicheck",
-                attributes: ["id", "status"],
-              },
-            ],
           },
           {
             model: User,
@@ -30,8 +24,21 @@ module.exports = class {
           },
         ],
       });
+
+      for (const work of works) {
+        const unicheck = await Unicheck.findOne({
+          where: { courseId: work.course.id },
+          raw: true,
+          nest: true,
+        });
+        work.course["unicheck"] = unicheck;
+        var neww = {
+          ...work,
+        };
+        arrayWork.push(neww);
+      }
       res.locals.title = "All Files";
-      res.locals.works = works;
+      res.locals.works = arrayWork;
       res.locals.moment = moment;
       res.locals.sn = 1;
       res.render("pages/lecturer/work/index");
@@ -69,6 +76,7 @@ module.exports = class {
           },
         ],
       });
+
       res.locals.title = "File";
       res.locals.work = work;
       res.locals.moment = moment;
