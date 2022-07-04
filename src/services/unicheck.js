@@ -123,7 +123,10 @@ module.exports = class {
                 percentage: 0,
                 words_count: 8,
               },
-              export: { format: "pdf", locale_code: "EN" },
+              export: {
+                format: "pdf",
+                locale_code: "EN"
+              },
             },
           },
         },

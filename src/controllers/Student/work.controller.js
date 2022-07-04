@@ -33,7 +33,7 @@ module.exports = class {
 
       for (const work of works) {
         const unicheck = await Unicheck.findOne({
-          where: { courseId: work.course.id },
+          where: { fileId: work.id },
           raw: true,
           nest: true,
         });

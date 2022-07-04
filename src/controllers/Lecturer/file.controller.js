@@ -29,7 +29,8 @@ module.exports = class {
 
       for (const work of works) {
         const unicheck = await Unicheck.findOne({
-          where: { courseId: work.course.id },
+          where: { fileId: work.id },
+          // where: { courseId: work.course.id },
           raw: true,
           nest: true,
         });
@@ -68,6 +69,7 @@ module.exports = class {
                 attributes: ["id", "name", "username", "email"],
               },
               {
+                where: { fileId: id },
                 model: Unicheck,
                 as: "unicheck",
                 attributes: ["id", "status", "percentage", "exportFile"],
